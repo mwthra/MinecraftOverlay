@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Equipe - Minecraft Overlay</title>
+    <link rel="icon" type="image/png" href="img/BedWarsOverlayLogo.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CONFIGURAÇÕES GERAIS */
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        html::-webkit-scrollbar { display: none; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0a0a0a;
+            color: white;
+            font-family: 'VT323', monospace;
+            letter-spacing: 1px;
+            overflow-x: hidden; 
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .mc-font { font-family: 'Press Start 2P', cursive; text-transform: uppercase; }
+
+        /* --- CSS DA HEADER INCORPORADO --- */
+        .pixel-header {
+            background: #1a1a1a;
+            border-bottom: 4px solid #333;
+            padding: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            image-rendering: pixelated;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .header-logo-img {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #ff6600;
+            border-radius: 2px;
+        }
+
+        .header-logo {
+            color: #ff6600;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 10px;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #ff6600;
+        }
+
+        @media (max-width: 750px) {
+            .pixel-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        /* WRAPPER PRINCIPAL */
+        .main-wrapper {
+            width: 100%;
+            padding: 60px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ESTILO DA PÁGINA */
+        .pixel-card { 
+            display: flex; 
+            flex-direction: column; 
+            background: #121212; 
+            border: 4px solid #333; 
+            width: 92%; 
+            max-width: 950px; 
+            margin: 0 auto 30px; 
+            padding: 20px; 
+            box-sizing: border-box; 
+        }
+
+        .subtitulo { 
+            color: #FFAA00; 
+            font-size: 16px; 
+            margin: 10px 0 25px 0; 
+            text-align: center; 
+        }
+
+        .grid-equipe { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 15px; 
+            width: 100%; 
+        }
+
+        .card { 
+            flex: 0 0 calc(33.33% - 15px); 
+            max-width: 220px; 
+            background: rgba(30,30,30,0.88); 
+            padding: 12px; 
+            border: 1px solid #333;
+            position: relative; 
+            overflow: hidden; 
+            transition: transform 0.2s ease-in-out; 
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .card:hover { 
+            transform: scale(1.05); 
+            box-shadow: 0 0 20px rgba(255,102,0,0.3); 
+            border-color: #ff6600;
+        }
+
+        .card img { 
+            width: 100%; 
+            border: 1px solid #222; 
+            display: block;
+            image-rendering: auto;
+        }
+
+        .card h4 { font-size: 13px; margin: 10px 0 0; color: white; }
+        .card p { font-size: 10px; margin: 4px 0 0; color: #ddd; }
+
+        .copy-discord { 
+            position: absolute; 
+            bottom: 0; left: 0; right: 0; 
+            background: rgba(255, 102, 0, 0.95); 
+            color: #000; 
+            font-size: 9px; 
+            padding: 8px 0; 
+            transform: translateY(100%); 
+            transition: 0.3s; 
+        }
+
+        .card:hover .copy-discord { transform: translateY(0); }
+
+        /* --- CSS DO FOOTER INCORPORADO --- */
+        .pixel-footer {
+            margin-top: auto;
+            background: #121212;
+            border-top: 4px solid #333;
+            padding: 20px 10px;
+            text-align: center;
+            image-rendering: pixelated;
+        }
+
+        .footer-disclaimer {
+            color: #555;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 10px auto;
+            line-height: 1.2;
+        }
+
+        @media (max-width: 750px) {
+            .card { flex: 0 0 calc(50% - 10px); }
+        }
+    </style>
+</head>
+<body>
+
+<header class="pixel-header">
+    <a href="/" class="logo-container nav-link-click">
+        <img src="img/BedWarsOverlayLogo.png" alt="Logo" class="header-logo-img">
+        <span class="header-logo mc-font">Minecraft Overlay</span>
+    </a>
+    <nav class="nav-links mc-font">
+        <a href="/" class="nav-link-click">Início</a>
+        <a href="downloads" class="nav-link-click">Downloads</a>
+        <a href="equipe" class="nav-link-click">Equipe</a>
+        <a href="contato" class="nav-link-click">Contato</a>
+        <a href="doacoes" class="nav-link-click">Doações</a>
+    </nav>
+</header>
+
+<div class="main-wrapper">
+    <h1 class="mc-font" style="font-size: 28px; color: white; margin-bottom: 40px; text-align: center;">Equipe</h1>
+
+    <div class="pixel-card">
+        <h2 class="mc-font subtitulo">Criadores</h2>
+        <div class="grid-equipe">
+            <div class="card" onclick="copyDiscord('drwng.')">
+                <img src="https://avatar-cyan.vercel.app/api/pfp/909219524782465024/image">
+                <h4 class="mc-font">Drwng</h4>
+                <p class="mc-font">Designer</p>
+                <div class="copy-discord mc-font">Copiar Discord</div>
+            </div>
+
+            <div class="card" onclick="copyDiscord('mowothra')">
+                <img src="https://avatar-cyan.vercel.app/api/pfp/1044218402685853696/image">
+                <h4 class="mc-font">mwthra</h4>
+                <p class="mc-font">Diretor</p>
+                <div class="copy-discord mc-font">Copiar Discord</div>
+            </div>
+
+            <div class="card">
+                <img src="https://avatar-cyan.vercel.app/api/pfp/901940360782159872/image">
+                <h4 class="mc-font">montyaxx</h4>
+                <p class="mc-font">Auxiliar</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="pixel-card">
+        <h2 class="mc-font subtitulo" style="color: #00008B;">Beta Testers</h2>
+        <div class="grid-equipe">
+             <div class="card"><img src="https://avatar-cyan.vercel.app/api/pfp/477223782168395777/image"><h4 class="mc-font">Snoop</h4></div>
+             <div class="card"><img src="https://avatar-cyan.vercel.app/api/pfp/1205561109482967180/image"><h4 class="mc-font">ikyy</h4></div>
+             <div class="card"><img src="https://avatar-cyan.vercel.app/api/pfp/982723365095743528/image"><h4 class="mc-font">ny3saan</h4></div>
+             <div class="card"><img src="https://avatar-cyan.vercel.app/api/pfp/431584048431890434/image"><h4 class="mc-font">Anne</h4></div>
+             <div class="card"><img src="https://avatar-cyan.vercel.app/api/pfp/614937998181662721/image"><h4 class="mc-font">ASTA02</h4></div>
+             <div class="card"><img src="https://avatar-cyan.vercel.app/api/pfp/1215877693946597469/image"><h4 class="mc-font">Hunter Bradley</h4></div>
+        </div>
+    </div>
+
+    <div class="pixel-card">
+        <h2 class="mc-font subtitulo" style="color: #00ff00;">Apoiadores de Esmeralda</h2>
+        <div class="grid-equipe">
+            <div class="card"><img src="https://avatar-cyan.vercel.app/api/pfp/1153048581960368139/image"><h4 class="mc-font">guiturati</h4></div>
+            <div class="card"><img src="https://avatar-cyan.vercel.app/api/pfp/1473192442105954446/image"><h4 class="mc-font">cutedog</h4></div>
+        </div>
+    </div>
+
+    <div class="pixel-card">
+        <h2 class="mc-font subtitulo" style="color: #00ffdd;">Apoiadores de Diamante</h2>
+        <div class="grid-equipe">
+            <div class="card"><img src="https://avatar-cyan.vercel.app/api/pfp/982723365095743528/image"><h4 class="mc-font">ny3saan</h4></div>
+            <div class="card"><img src="https://avatar-cyan.vercel.app/api/pfp/1385721381068603442/image"><h4 class="mc-font">kzx_07</h4></div>
+            <div class="card"><img src="https://avatar-cyan.vercel.app/api/pfp/375799946974330893/image"><h4 class="mc-font">hognose</h4></div>
+            <div class="card"><img src="https://avatar-cyan.vercel.app/api/pfp/1463106480298524767/image"><h4 class="mc-font">b3xck</h4></div>
+            <div class="card"><img src="https://avatar-cyan.vercel.app/api/pfp/928885216293040159/image"><h4 class="mc-font">pagodje</h4></div>
+            <div class="card"><img src="https://avatar-cyan.vercel.app/api/pfp/949326464711528488/image"><h4 class="mc-font">danizzx</h4></div>
+            <div class="card"><img src="https://avatar-cyan.vercel.app/api/pfp/1343682306522742886/image"><h4 class="mc-font">chocohih</h4></div>
+            <div class="card"><img src="https://avatar-cyan.vercel.app/api/pfp/1423431643271532687/image"><h4 class="mc-font">strikez1n</h4></div>
+            <div class="card"><img src="https://avatar-cyan.vercel.app/api/pfp/1489660034089488424/image"><h4 class="mc-font">zashi</h4></div>
+            <div class="card"><img src="https://avatar-cyan.vercel.app/api/pfp/1316259847351832646/image"><h4 class="mc-font">rotulado</h4></div>
+            <div class="card"><img src="https://avatar-cyan.vercel.app/api/pfp/873777235478323230/image"><h4 class="mc-font">y3tab</h4></div>
+            <div class="card"><img src="https://avatar-cyan.vercel.app/api/pfp/943605457635901482/image"><h4 class="mc-font">Akatsunubs</h4></div>
+        </div>
+    </div>
+</div>
+
+<footer class="pixel-footer">
+    <div class="mc-font" style="color: #ff6600; font-size: 10px; margin-bottom: 5px;">Minecraft Overlay © 2026</div>
+    <div class="footer-disclaimer">
+        Este projeto é um conteúdo independente feito por fãs. Não somos afiliados, associados, autorizados ou endossados pela Microsoft Corporation ou Mojang Synergies AB.
+    </div>
+</footer>
+
+<script>
+    const clickSound = new Audio('sons/minecraft-click.mp3');
+
+    function playClick() {
+        clickSound.currentTime = 0;
+        clickSound.play();
+    }
+
+    // Função para copiar Discord
+    function copyDiscord(username) {
+        playClick();
+        navigator.clipboard.writeText(username).then(() => {
+            const toast = document.createElement('div');
+            toast.className = 'mc-font';
+            toast.style = 'position:fixed; bottom:10%; left:50%; transform:translateX(-50%); background:#3f3f3f; color:#ff6600; padding:12px 20px; border:3px solid #ff6600; font-size:10px; z-index:9999999; box-shadow: 4px 4px 0 #000;';
+            toast.textContent = '✅ COPIADO!';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2000);
+        });
+    }
+
+    // Gerenciador de cliques com delay para navegação da Header
+    document.addEventListener('click', function(e) {
+        const target = e.target.closest('.nav-link-click');
+        if (target) {
+            e.preventDefault();
+            playClick();
+            
+            const href = target.getAttribute('href');
+            setTimeout(() => {
+                window.location.href = href;
+            }, 150);
+        }
+    });
+</script>
+
+</body>
+</html>

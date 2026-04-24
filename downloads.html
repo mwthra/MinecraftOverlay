@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Downloads - Minecraft Overlay</title>
+    <link rel="icon" type="image/png" href="img/BedWarsOverlayLogo.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CONFIGURAÇÕES GERAIS */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0a0a0a;
+            color: white;
+            font-family: 'VT323', monospace;
+            letter-spacing: 1px;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .mc-font { font-family: 'Press Start 2P', cursive; text-transform: uppercase; }
+
+        /* HEADER MANUAL */
+        .pixel-header {
+            background: #1a1a1a;
+            border-bottom: 4px solid #333;
+            padding: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            image-rendering: pixelated;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .header-logo-img {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #ff6600;
+            border-radius: 2px;
+        }
+
+        .header-logo {
+            color: #ff6600;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 10px;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #ff6600;
+        }
+
+        @media (max-width: 750px) {
+            .pixel-header { 
+                flex-direction: column; 
+                gap: 15px; 
+                text-align: center; 
+            }
+            .nav-links { 
+                flex-wrap: wrap; 
+                justify-content: center; 
+            }
+        }
+
+        /* CONTEÚDO PRINCIPAL */
+        .main-wrapper {
+            width: 100%;
+            padding: 60px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .pixel-card { 
+            display: flex; 
+            flex-direction: column; 
+            background: #121212; 
+            border: 4px solid #333; 
+            width: 92%; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            image-rendering: pixelated; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        @media (min-width: 700px) {
+            .pixel-card { flex-direction: row; }
+            .side-img { width: 40%; }
+            .side-text { width: 60%; }
+        }
+
+        .side-img { 
+            padding: 40px; 
+            text-align: center; 
+            background: #1a1a1a; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        .side-img img { 
+            width: 100%; 
+            max-width: 200px; 
+            border: 2px solid #ff6600; 
+            border-radius: 4px; 
+            filter: grayscale(1); 
+        }
+
+        .side-text { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+        .pixel-title { font-size: 2.2rem; color: #ff6600; text-shadow: 3px 3px #000; margin-top: 0; margin-bottom: 15px; }
+        .pixel-p { font-size: 1.6rem; line-height: 1.3; margin-bottom: 25px; color: #ccc; }
+
+        .pixel-btn { 
+            background: #ff6600; 
+            color: #000; 
+            border: 3px solid #000; 
+            padding: 12px 20px; 
+            font-size: 10px; 
+            cursor: pointer; 
+            box-shadow: 4px 4px 0px #000; 
+            text-decoration: none; 
+            display: inline-block; 
+            transition: 0.1s;
+            text-align: center;
+        }
+        .pixel-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px #000; }
+
+        /* FOOTER MANUAL */
+        .pixel-footer {
+            margin-top: auto;
+            background: #121212;
+            border-top: 4px solid #333;
+            padding: 20px 10px;
+            text-align: center;
+            image-rendering: pixelated;
+        }
+
+        .footer-disclaimer {
+            color: #555;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 10px auto;
+            line-height: 1.2;
+        }
+    </style>
+</head>
+<body>
+
+<header class="pixel-header">
+    <a href="/" class="logo-container">
+        <img src="img/BedWarsOverlayLogo.png" alt="Logo" class="header-logo-img">
+        <span class="header-logo mc-font">Minecraft Overlay</span>
+    </a>
+    <nav class="nav-links mc-font">
+        <a href="/" class="nav-link-click">Início</a>
+        <a href="downloads" class="nav-link-click">Downloads</a>
+        <a href="equipe" class="nav-link-click">Equipe</a>
+        <a href="contato" class="nav-link-click">Contato</a>
+        <a href="doacoes" class="nav-link-click">Doações</a>
+    </nav>
+</header>
+
+<main class="main-wrapper">
+    <div class="pixel-card">
+        <div class="side-img">
+            <img src="img/BedWarsOverlayLogo.png" alt="Status do Download">
+        </div>
+        <div class="side-text">
+            <h2 class="pixel-title mc-font">INDISPONÍVEL</h2>
+            <p class="pixel-p">O DOWNLOAD DA OVERLAY NÃO ESTÁ DISPONÍVEL NO MOMENTO.</p>
+            <div class="btn-group">
+                <a href="https://discord.gg/GCYCrWHeJS" target="_blank" class="pixel-btn mc-font" rel="noopener noreferrer">ENTRE NO DISCORD PARA MAIS INFORMAÇÕES SOBRE A OVERLAY</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="pixel-footer">
+    <div class="mc-font" style="color: #ff6600; font-size: 10px; margin-bottom: 5px;">Minecraft Overlay © 2026</div>
+    <div class="footer-disclaimer">
+        Este projeto é um conteúdo independente feito por fãs. Não somos afiliados, associados, autorizados ou endossados pela Microsoft Corporation ou Mojang Synergies AB.
+    </div>
+</footer>
+
+<script>
+    const clickSound = new Audio('sons/minecraft-click.mp3');
+
+    function playClick() {
+        clickSound.currentTime = 0;
+        clickSound.play();
+    }
+
+    window.onload = function() {
+        const clickableItems = document.querySelectorAll('.pixel-btn, .nav-links a, .logo-container');
+        
+        clickableItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                const target = this.getAttribute('href');
+                const isBlank = this.getAttribute('target') === '_blank';
+
+                if (target && target !== '#' && !target.startsWith('#')) {
+                    if (!isBlank) {
+                        e.preventDefault();
+                        playClick();
+                        setTimeout(() => {
+                            window.location.href = target;
+                        }, 150);
+                    } else {
+                        playClick();
+                    }
+                }
+            });
+        });
+    };
+</script>
+
+</body>
+</html>

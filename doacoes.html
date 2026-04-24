@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Doações - Minecraft Overlay</title>
+    <link rel="icon" type="image/png" href="img/BedWarsOverlayLogo.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CONFIGURAÇÕES GERAIS */
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        html::-webkit-scrollbar { display: none; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0a0a0a;
+            color: white;
+            font-family: 'VT323', monospace;
+            letter-spacing: 1px;
+            overflow-x: hidden; 
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .mc-font { font-family: 'Press Start 2P', cursive; text-transform: uppercase; line-height: 1.4; }
+
+        /* HEADER */
+        .pixel-header {
+            background: #1a1a1a;
+            border-bottom: 4px solid #333;
+            padding: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            image-rendering: pixelated;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .header-logo-img {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #ff6600;
+            border-radius: 2px;
+        }
+
+        .header-logo {
+            color: #ff6600;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 10px;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #ff6600;
+        }
+
+        /* FOOTER */
+        .pixel-footer {
+            margin-top: auto;
+            background: #121212;
+            border-top: 4px solid #333;
+            padding: 20px 10px;
+            text-align: center;
+            image-rendering: pixelated;
+        }
+
+        .footer-disclaimer {
+            color: #555;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 10px auto;
+            line-height: 1.2;
+        }
+
+        /* CONTEÚDO PRINCIPAL */
+        .main-wrapper { 
+            width: 100%; 
+            padding: 60px 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            flex-grow: 1; 
+            justify-content: center; 
+        }
+        
+        .pixel-card { 
+            display: flex; 
+            flex-direction: column; 
+            background: #121212; 
+            border: 4px solid #333; 
+            width: 92%; 
+            max-width: 950px; 
+            margin: 0 auto; 
+            image-rendering: pixelated; 
+        }
+        
+        @media (min-width: 850px) { 
+            .pixel-card { flex-direction: row; } 
+            .side-img { width: 40%; } 
+            .side-text { width: 60%; } 
+        }
+
+        .side-img { padding: 40px; text-align: center; background: #1a1a1a; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .side-img img { width: 100%; max-width: 250px; border: 2px solid #ff6600; border-radius: 4px; background: #000; }
+        .side-text { padding: 45px; display: flex; flex-direction: column; justify-content: center; }
+        .pixel-title { font-size: 2.2rem; color: #ff6600; text-shadow: 3px 3px #000; margin: 0 0 10px 0; text-align: center; }
+        .pixel-subtitle { font-size: 9px; color: #aaa; margin: 0 0 30px 0; text-align: center; }
+
+        .donation-form { display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 400px; margin: 0 auto; }
+        .input-group { position: relative; }
+
+        .pixel-input { background: #000; border: 2px solid #333; color: #fff; padding: 12px; font-family: 'VT323', monospace; font-size: 1.4rem; outline: none; width: 100%; box-sizing: border-box; }
+        .pixel-input:focus { border-color: #ff6600; }
+        .pixel-input.invalid { border-color: #ff0000; }
+
+        .error-bubble { display: none; position: absolute; background: #1a1a1a; border: 2px solid #ff0000; color: #ff0000; padding: 6px 10px; font-size: 8px; z-index: 10; top: -5px; left: 50%; transform: translateX(-50%) translateY(-100%); white-space: nowrap; box-shadow: 4px 4px 0px #000; }
+
+        .pixel-btn { background: #ff6600; color: #000; border: 3px solid #000; padding: 15px 20px; font-size: 12px; cursor: pointer; box-shadow: 4px 4px 0px #000; text-align: center; margin-top: 15px; width: auto; align-self: center; }
+        .pixel-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px #000; }
+        .pixel-btn:disabled { background: #555; cursor: not-allowed; opacity: 0.7; }
+
+        #limit-area { display: none; text-align: center; padding: 20px; border: 2px dashed #ff0000; background: rgba(255, 0, 0, 0.05); }
+        #timer-display { color: #ff6600; font-size: 14px; margin-top: 10px; }
+
+        /* Responsividade da Header */
+        @media (max-width: 750px) {
+            .pixel-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="pixel-header">
+    <a href="/" class="logo-container nav-link-click">
+        <img src="img/BedWarsOverlayLogo.png" alt="Logo" class="header-logo-img">
+        <span class="header-logo mc-font">Minecraft Overlay</span>
+    </a>
+    <nav class="nav-links mc-font">
+        <a href="/">Início</a>
+        <a href="downloads">Downloads</a>
+        <a href="equipe">Equipe</a>
+        <a href="contato">Contato</a>
+        <a href="doacoes">Doações</a>
+    </nav>
+</header>
+
+<div class="main-wrapper">
+    <div class="pixel-card">
+        <div class="side-img">
+            <div id="qr-placeholder">
+                <img src="img/pix_bloqueado.png" id="display-img">
+                <p class="mc-font" id="placeholder-text" style="font-size: 8px; color: #555; margin-top: 15px;">Aguardando formulário...</p>
+            </div>
+            <div id="pix-area" style="display:none; text-align: center;">
+                <a href="https://livepix.gg/minecraftoverlay" target="_blank" style="text-decoration: none;">
+                    <img src="img/pix_liberado.png" style="border: 4px solid #ff6600; background: white; padding: 5px; width: 180px; cursor: pointer;">
+                </a>
+                <p class="mc-font" style="font-size: 10px; color: #ff6600; margin-top: 10px;">Escaneie ou clique na imagem para doar</p>
+            </div>
+        </div>
+
+        <div class="side-text" id="side-content">
+            <div id="info-text">
+                <h2 class="pixel-title mc-font">NOS AJUDE!</h2>
+                <p class="mc-font pixel-subtitle">Ajude o projeto e receba benefícios exclusivos!</p>
+            </div>
+            
+            <form id="donation-form" class="donation-form" novalidate>
+                <div class="input-group">
+                    <input type="text" id="nome" placeholder="Nick no Minecraft" class="pixel-input" minlength="3" maxlength="16" required>
+                    <div class="error-bubble mc-font">Mínimo 3 e máximo 16 letras.</div>
+                </div>
+                
+                <div class="input-group">
+                    <input type="text" id="discord" placeholder="Seu discord (Ex: @user)" class="pixel-input" minlength="2" maxlength="32" required>
+                    <div class="error-bubble mc-font">Mínimo 2 e máximo 32 letras.</div>
+                </div>
+                
+                <div class="input-group">
+                    <input type="text" id="valor" placeholder="VALOR (R$ 0,00)" class="pixel-input" required>
+                    <div class="error-bubble mc-font">Informe um valor válido.</div>
+                </div>
+                
+                <button type="submit" id="submit-btn" class="pixel-btn mc-font">GERAR PIX</button>
+            </form>
+
+            <div id="limit-area">
+                <p class="mc-font" style="font-size: 11px; color: #ff0000; line-height: 1.6;">VOCÊ JÁ APOIOU RECENTEMENTE, TENTE NOVAMENTE MAIS TARDE.</p><br>
+                <div id="timer-display" class="mc-font">Tempo restante: 00:00</div>
+            </div>
+
+            <div id="success-area" style="display:none; text-align: center;">
+                <p class="mc-font" style="font-size: 12px; color: #00ff00; margin-bottom: 15px;">✅ DADOS REGISTRADOS!</p>
+                <p class="mc-font" style="font-size: 9px; color: #fff; line-height: 1.6;">Obrigado por apoiar! Escaneie o QR Code ou clique para completar a doação e receber seus benefícios no Discord.<br></p>
+                <p class="mc-font" style="font-size: 9px; color: #fff; line-height: 1.6;">Por favor use o mesmo @ do discord que usou aqui na hora de doar.<br></p>
+                <p class="mc-font" style="font-size: 9px; color: #fff; line-height: 1.6;">As doações são mediadas através do Live Pix, para doar é necessário que você entre no site do live pix e doe por lá, para segurança tanto do doador quanto do recebedor.<br></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="pixel-footer">
+    <div class="mc-font" style="color: #ff6600; font-size: 10px; margin-bottom: 5px;">Minecraft Overlay © 2026</div>
+    <div class="footer-disclaimer">
+        Este projeto é um conteúdo independente feito por fãs. Não somos afiliados, associados, autorizados ou endossados pela Microsoft Corporation ou Mojang Synergies AB.
+    </div>
+</footer>
+
+<script>
+    const clickSound = new Audio('sons/minecraft-click.mp3');
+    const COOLDOWN_TIME = 15 * 60 * 1000;
+
+    function playClick() {
+        clickSound.currentTime = 0;
+        clickSound.play();
+    }
+
+    // Timer visual
+    function startTimer(expiration) {
+        const timerElement = document.getElementById('timer-display');
+        
+        function update() {
+            const now = Date.now();
+            const diff = expiration - now;
+
+            if (diff <= 0) {
+                location.reload();
+                return;
+            }
+
+            const minutes = Math.floor(diff / 60000);
+            const seconds = Math.floor((diff % 60000) / 1000);
+            
+            timerElement.innerText = `Tempo restante: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        update();
+        setInterval(update, 1000);
+    }
+
+    document.addEventListener('click', function(e) {
+        const target = e.target.closest('.nav-link-click') || e.target.closest('.nav-links a');
+        if (target) {
+            e.preventDefault();
+            playClick();
+            const href = target.getAttribute('href');
+            if(href && href !== "#") {
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 150);
+            }
+        }
+    });
+
+    function checkCooldown() {
+        const expiration = localStorage.getItem('donation_cooldown');
+        if (expiration) {
+            const now = Date.now();
+            if (now < parseInt(expiration)) {
+                showLimitMessage();
+                startTimer(parseInt(expiration));
+                return true;
+            } else {
+                localStorage.removeItem('donation_cooldown');
+            }
+        }
+        return false;
+    }
+
+    function showLimitMessage() {
+        document.getElementById('donation-form').style.display = 'none';
+        document.getElementById('limit-area').style.display = 'block';
+        document.getElementById('placeholder-text').innerText = "Limite atingido.";
+    }
+
+    window.onload = checkCooldown;
+
+    const valorInput = document.getElementById('valor');
+    valorInput.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, ''); 
+        if (value === "") { e.target.value = ""; return; }
+        value = (value / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        e.target.value = value;
+    });
+
+    document.getElementById('donation-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        playClick();
+
+        if (checkCooldown()) return;
+        
+        let formIsValid = true;
+        const inputs = this.querySelectorAll('.pixel-input[required]');
+
+        inputs.forEach(input => {
+            const val = input.value.trim();
+            let isInvalid = false;
+            let errorMessage = "Preencha este campo.";
+
+            if (!val) { isInvalid = true; }
+            else if (input.id === 'nome' && (val.length < 3 || val.length > 16)) { isInvalid = true; errorMessage = "Mínimo 3 e máximo 16 letras."; }
+            else if (input.id === 'discord' && (val.length < 2 || val.length > 32)) { isInvalid = true; errorMessage = "Mínimo 2 e máximo 32 letras."; }
+            else if (input.id === 'valor') {
+                const numericValue = parseFloat(val.replace(/\./g, '').replace(',', '.'));
+                if (isNaN(numericValue) || numericValue < 1.00) { isInvalid = true; errorMessage = "Valor mínimo: R$ 1,00"; }
+            }
+
+            if (isInvalid) {
+                formIsValid = false;
+                input.classList.add('invalid');
+                const errorBubble = input.parentElement.querySelector('.error-bubble');
+                if (errorBubble) { errorBubble.textContent = errorMessage; errorBubble.style.display = 'block'; }
+            }
+        });
+
+        if (formIsValid) {
+            const n = document.getElementById('nome').value.trim();
+            const d = document.getElementById('discord').value.trim();
+            const v = document.getElementById('valor').value.replace(/\./g, '').replace(',', '.');
+
+            try {
+                const response = await fetch("https://minecraftoverlay.mowothra.workers.dev/", { 
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nome: n, discord: d, valor: v })
+                });
+
+                if (response.ok) {
+                    const expirationTime = Date.now() + COOLDOWN_TIME;
+                    localStorage.setItem('donation_cooldown', expirationTime);
+
+                    document.getElementById('info-text').style.display = 'none';
+                    this.style.display = 'none';
+                    document.getElementById('qr-placeholder').style.display = 'none';
+                    document.getElementById('pix-area').style.display = 'block';
+                    document.getElementById('success-area').style.display = 'block';
+                }
+            } catch (error) { alert("Erro de conexão."); }
+        }
+    });
+
+    document.querySelectorAll('.pixel-input').forEach(input => {
+        input.addEventListener('input', function() {
+            this.classList.remove('invalid');
+            const bubble = this.parentElement.querySelector('.error-bubble');
+            if (bubble) bubble.style.display = 'none';
+        });
+    });
+</script>
+
+</body>
+</html>
