@@ -3,18 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Downloads - Minecraft Overlay</title>
-    <meta name="description" content="Baixe agora a sua overlay!">
-    
-    <link rel="icon" type="image/png" href="img/BedWarsOverlayLogo.png">
-    
+    <title>Minecraft Overlay - Downloads</title>
     <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
     
     <style>
         /* CONFIGURAÇÕES GERAIS */
         html {
             scroll-behavior: smooth;
+            scrollbar-width: none;
         }
 
         body {
@@ -32,7 +28,7 @@
 
         .mc-font { font-family: 'Press Start 2P', cursive; text-transform: uppercase; }
 
-        /* HEADER MANUAL */
+        /* HEADER */
         .pixel-header {
             background: #1a1a1a;
             border-bottom: 4px solid #333;
@@ -80,82 +76,18 @@
         }
 
         @media (max-width: 750px) {
-            .pixel-header { 
-                flex-direction: column; 
-                gap: 15px; 
-                text-align: center; 
+            .pixel-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
             }
-            .nav-links { 
-                flex-wrap: wrap; 
-                justify-content: center; 
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
             }
         }
 
-        /* CONTEÚDO PRINCIPAL */
-        .main-wrapper {
-            width: 100%;
-            padding: 60px 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            flex: 1;
-        }
-
-        .pixel-card { 
-            display: flex; 
-            flex-direction: column; 
-            background: #121212; 
-            border: 4px solid #333; 
-            width: 92%; 
-            max-width: 800px; 
-            margin: 0 auto; 
-            image-rendering: pixelated; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        
-        @media (min-width: 700px) {
-            .pixel-card { flex-direction: row; }
-            .side-img { width: 40%; }
-            .side-text { width: 60%; }
-        }
-
-        .side-img { 
-            padding: 40px; 
-            text-align: center; 
-            background: #1a1a1a; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-        }
-        .side-img img { 
-            width: 100%; 
-            max-width: 200px; 
-            border: 2px solid #ff6600; 
-            border-radius: 4px; 
-            filter: grayscale(1); 
-        }
-
-        .side-text { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
-        .pixel-title { font-size: 1.5rem; color: #ff6600; text-shadow: 3px 3px #000; margin-top: 0; margin-bottom: 15px; word-break: break-word; overflow-wrap: break-word;}
-        .pixel-p { font-size: 1.7rem; line-height: 1.3; margin-bottom: 25px; color: #ccc; }
-
-        .pixel-btn { 
-            background: #ff6600; 
-            color: #000; 
-            border: 3px solid #000; 
-            padding: 12px 20px; 
-            font-size: 12px; 
-            cursor: pointer; 
-            box-shadow: 4px 4px 0px #000; 
-            text-decoration: none; 
-            display: inline-block; 
-            transition: 0.1s;
-            text-align: center;
-        }
-        .pixel-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px #000; }
-
-        /* FOOTER MANUAL */
+        /* FOOTER */
         .pixel-footer {
             margin-top: auto;
             background: #121212;
@@ -172,38 +104,524 @@
             margin: 10px auto;
             line-height: 1.2;
         }
+
+        /* CONTEÚDO */
+        .main-wrapper {
+            width: 100%;
+            padding: 60px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .pixel-card { 
+            display: flex; 
+            flex-direction: column; 
+            background: #121212; 
+            border: 4px solid #333; 
+            width: 92%; 
+            max-width: 950px; 
+            margin: 0 auto 30px; 
+            image-rendering: pixelated; 
+        }
+        
+        @media (min-width: 850px) {
+            .pixel-card { flex-direction: row; }
+            .side-img { width: 40%; }
+            .side-text { width: 60%; }
+        }
+
+        .side-img { padding: 40px; text-align: center; background: #1a1a1a; display: flex; align-items: center; justify-content: center; }
+        .side-img img { width: 100%; max-width: 250px; border: 2px solid #ff6600; border-radius: 4px; }
+
+        .side-text { padding: 40px; }
+        .pixel-title { font-size: 3.6rem; color: #ff6600; text-shadow: 3px 3px #000; margin-top: 0; margin-bottom: 10px; }
+        .pixel-p { font-size: 1.4rem; line-height: 1.3; margin-bottom: 25px; }
+
+        /* CARD DE DOWNLOADS  */
+        .stats-card {
+            width: 92%;
+            max-width: 950px;
+            background: #1a1a1a;
+            border: 4px solid #333;
+            margin: 20px auto 30px;
+            padding: 20px;
+            text-align: center;
+            box-sizing: border-box;
+            image-rendering: pixelated;
+        }
+        
+        .stats-card h3 { 
+            margin: 0 0 15px 0; 
+            color: #ff6600; 
+            font-size: 12px; 
+        }
+
+        .stats-number-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .stats-number { 
+            font-size: 3.5rem; 
+            color: #fff; 
+            text-shadow: 3px 3px #000; 
+        }
+
+        /* BOTÕES */
+        .pixel-btn { 
+            background: #ff6600; 
+            color: #000; 
+            border: 3px solid #000; 
+            padding: 10px 20px; 
+            font-size: 10px; 
+            cursor: pointer; 
+            box-shadow: 4px 4px 0px #000; 
+            text-decoration: none; 
+            display: inline-block; 
+            transition: 0.1s;
+        }
+        .pixel-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px #000; }
+
+        .btn-static {
+            background: #333;
+            color: #ff6600;
+            border: 3px solid #000;
+            padding: 10px 20px;
+            font-size: 10px;
+            box-shadow: 4px 4px 0px #000;
+            display: inline-block;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .btn-container { 
+            display: flex; 
+            flex-direction: row; 
+            align-items: center; 
+            gap: 15px; 
+            flex-wrap: wrap; 
+        }
+        
+        .btn-group { display: flex; gap: 15px; flex-wrap: wrap; }
+
+        /* SEÇÃO DE ARQUIVO E LOGS */
+        .archive-section { width: 92%; max-width: 950px; margin: 20px auto; }
+        
+        .archive-header { 
+            background: #1a1a1a; 
+            border: 3px solid #333; 
+            padding: 15px; 
+            cursor: pointer; 
+            color: #ff6600; 
+            font-size: 12px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+
+        .archive-content { 
+            display: none; 
+            background: #121212; 
+            border: 3px solid #333; 
+            border-top: none; 
+            padding: 10px; 
+        }
+
+        .archive-content.open { display: block; }
+
+        .version-item { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: flex-start; 
+            padding: 20px; 
+            border-bottom: 2px solid #222; 
+            transition: background 0.3s;
+        }
+        
+        .highlight-log { background: #1a1100 !important; border: 1px solid #ff6600 !important; }
+
+        .version-info { flex: 1; margin-right: 20px; }
+        .version-info h4 { margin: 0 0 10px 0; color: #ff6600; font-size: 14px; }
+        .version-info p { margin: 5px 0 0; color: #ccc; font-size: 1.2rem; line-height: 1.4; }
+
+        .patch-notes-text { color: #aaa; font-family: 'VT323', monospace; font-size: 1.3rem !important; }
+
+        @media (max-width: 750px) {
+            .version-item { flex-direction: column; gap: 20px; text-align: left; }
+            .version-info { margin-right: 0; }
+            .btn-group { justify-content: flex-start; }
+            .btn-container { flex-direction: column; align-items: flex-start; }
+            .stats-number { font-size: 2.5rem; }
+        }
     </style>
 </head>
 <body>
 
 <header class="pixel-header">
-    <a href="/" class="logo-container">
+    <a href="index.html" class="logo-container">
         <img src="img/BedWarsOverlayLogo.png" alt="Logo" class="header-logo-img">
         <span class="header-logo mc-font">Minecraft Overlay</span>
     </a>
     <nav class="nav-links mc-font">
-        <a href="/" class="nav-link-click">Início</a>
-        <a href="downloads" class="nav-link-click">Downloads</a>
-        <a href="equipe" class="nav-link-click">Equipe</a>
-        <a href="contato" class="nav-link-click">Contato</a>
-        <a href="doacoes" class="nav-link-click">Doações</a>
+        <a href="index.html">Início</a>
+        <a href="Downloads.html">Downloads</a>
+        <a href="Equipe.html">Equipe</a>
+        <a href="Contato.html">Contato</a>
+        <a href="pix.html">Doações</a>
     </nav>
 </header>
 
-<main class="main-wrapper">
+<div class="main-wrapper">
+    
+    <!-- VERSÃO RECENTE -->
     <div class="pixel-card">
         <div class="side-img">
-            <img src="img/BedWarsOverlayLogo.png" alt="Status do Download">
+            <img src="img/BedWarsOverlayLogo.png">
         </div>
         <div class="side-text">
-            <h2 class="pixel-title mc-font">INDISPONÍVEL</h2>
-            <p class="pixel-p">O DOWNLOAD DA OVERLAY NÃO ESTÁ DISPONÍVEL NO MOMENTO.</p>
-            <div class="btn-group">
-                <a href="https://discord.gg/GCYCrWHeJS" target="_blank" class="pixel-btn mc-font" rel="noopener noreferrer">ENTRE NO DISCORD PARA MAIS INFORMAÇÕES SOBRE A OVERLAY</a>
+            <h2 class="pixel-title">VERSÃO MAIS RECENTE</h2>
+            <p class="pixel-p">BAIXE A VERSÃO MAIS RECENTE DA OVERLAY.</p>
+            <div class="btn-container">
+                <div class="btn-group">
+                    <a href="https://github.com/mwthra/MinecraftOverlayVersions/releases/download/v1.6/aMine.2craft.6Overlay.Extrair.zip" class="pixel-btn mc-font">BAIXAR V1.6</a>
+                    <button onclick="goToLog('log-1-6')" class="pixel-btn mc-font">CHANGELOG</button>
+                </div>
+                <div id="count-v1.6" class="btn-static mc-font">... DOWNLOADS</div>
             </div>
         </div>
     </div>
-</main>
+
+    <div class="archive-section">
+        <div class="archive-header mc-font" onclick="toggleArchive('archive-list', 'archive-arrow')">
+            <span>VERSÕES ANTERIORES</span>
+            <span id="archive-arrow">▼</span>
+        </div>
+        
+        <div id="archive-list" class="archive-content">
+            <div class="version-item">
+                <div class="version-info">
+                    <h4 class="mc-font">V1.5</h4>
+                    <p>Revisão completa de ícones e modo Duels.</p>
+                </div>
+                <div class="btn-container">
+                    <div class="btn-group">
+                        <a href="https://github.com/mwthra/MinecraftOverlayVersions/releases/download/v1.5/aMine.2craft.6Overlay.Extrair.v1.5.rar" class="pixel-btn mc-font">DOWNLOAD</a>
+                        <button onclick="goToLog('log-1-5')" class="pixel-btn mc-font">CHANGELOG</button>
+                    </div>
+                    <div id="count-v1.5" class="btn-static mc-font">... DOWNLOADS</div>
+                </div>
+            </div>
+
+            <div class="version-item">
+                <div class="version-info">
+                    <h4 class="mc-font">V1.4</h4>
+                    <p>Otimização de ícones para ganho de FPS.</p>
+                </div>
+                <div class="btn-container">
+                    <div class="btn-group">
+                        <a href="https://github.com/mwthra/MinecraftOverlayVersions/releases/download/v1.4/4Bed.fWars.Ov.berl.3ay.6.Pack.Extrair.v1.4.rar" class="pixel-btn mc-font">DOWNLOAD</a>
+                        <button onclick="goToLog('log-1-4')" class="pixel-btn mc-font">CHANGELOG</button>
+                    </div>
+                    <div id="count-v1.4" class="btn-static mc-font">... DOWNLOADS</div>
+                </div>
+            </div>
+
+            <div class="version-item">
+                <div class="version-info">
+                    <h4 class="mc-font">V1.3</h4>
+                    <p>Adição de HG e ícones de Lobby.</p>
+                </div>
+                <div class="btn-container">
+                    <div class="btn-group">
+                        <a href="https://github.com/mwthra/MinecraftOverlayVersions/releases/download/v1.3/4Bed.fWars.Ov.berl.3ay.6.Pack.Extrair.v1.3.zip" class="pixel-btn mc-font">DOWNLOAD</a>
+                        <button onclick="goToLog('log-1-3')" class="pixel-btn mc-font">CHANGELOG</button>
+                    </div>
+                    <div id="count-v1.3" class="btn-static mc-font">... DOWNLOADS</div>
+                </div>
+            </div>
+
+            <div class="version-item">
+                <div class="version-info">
+                    <h4 class="mc-font">V1.2</h4>
+                    <p>Menus interativos para Bed Wars.</p>
+                </div>
+                <div class="btn-container">
+                    <div class="btn-group">
+                        <a href="https://github.com/mwthra/MinecraftOverlayVersions/releases/download/v1.2/4Bed.fWars.Ov.berl.3ay.6.Pack.Extrair.v1.2.zip" class="pixel-btn mc-font">DOWNLOAD</a>
+                        <button onclick="goToLog('log-1-2')" class="pixel-btn mc-font">CHANGELOG</button>
+                    </div>
+                    <div id="count-v1.2" class="btn-static mc-font">... DOWNLOADS</div>
+                </div>
+            </div>
+
+            <div class="version-item">
+                <div class="version-info">
+                    <h4 class="mc-font">V1.1</h4>
+                    <p>Hotfixes e ajustes beta.</p>
+                </div>
+                <div class="btn-container">
+                    <div class="btn-group">
+                        <a href="https://github.com/mwthra/MinecraftOverlayVersions/releases/download/v1.1/4Bed.fWars.Ov.berl.3ay.6.Pack.Extrair.v1.1.rar" class="pixel-btn mc-font">DOWNLOAD</a>
+                        <button onclick="goToLog('log-1-1')" class="pixel-btn mc-font">CHANGELOG</button>
+                    </div>
+                    <div id="count-v1.1" class="btn-static mc-font">... DOWNLOADS</div>
+                </div>
+            </div>
+
+            <div class="version-item">
+                <div class="version-info">
+                    <h4 class="mc-font">V1.0</h4>
+                    <p>Lançamento estável inicial.</p>
+                </div>
+                <div class="btn-container">
+                    <div class="btn-group">
+                        <a href="https://github.com/mwthra/MinecraftOverlayVersions/releases/download/v1.0/4Bed.fWars.Ov.berl.3ay.6.Pack.Extrair.v1.0.zip" class="pixel-btn mc-font">DOWNLOAD</a>
+                        <button onclick="goToLog('log-1-0')" class="pixel-btn mc-font">CHANGELOG</button>
+                    </div>
+                    <div id="count-v1.0" class="btn-static mc-font">... DOWNLOADS</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="archive-section">
+        <div class="archive-header mc-font" onclick="toggleArchive('changelog-details', 'changelog-arrow-main')">
+            <span>NOTAS DAS VERSÕES (CHANGELOGS)</span>
+            <span id="changelog-arrow-main">▼</span>
+        </div>
+        
+        <div id="changelog-details" class="archive-content">
+            
+            <div id="log-1-6" class="version-item">
+                <div class="version-info">
+                    <h4 class="mc-font">V1.6 - Patch Notes Atualizado</h4>
+                    <p class="patch-notes-text">
+                        <strong>Hyris:</strong><br>
+	+ [Ícone slot vazio Adicionado]<br>
+	/  [Ícone cosméticos Atualizado]<br>
+	/  [Ícone títulos Atualizado]<br>
+	/  [Reatividade nos ícones do meu perfil Atualizado]<br>
+	/  [Ícone remover cosmético Atualizado]<br>
+	/  [Ícone não possui cosmético Atualizado]<br>
+
+                        <strong>Mush:</strong><br>
+	+ [Ícone votação de temas build battle Adicionado]<br>
+	/ [Ícones dos duels corrigido]<br>
+
+                        <strong>Kaizen:</strong><br>
+	+ [Reatividade nos ícones de preferência Adicionado]<br>
+
+                        <strong>Flame:</strong><br>
+	+ [Ícone clan x clan Adicionado]<br>
+	+ [Ícone estatísticas Adicionado]<br>
+	/ [Reatividade nos ícones de preferência Atualizado]<br>
+	/ [Ícone salas de HG Atualizado]<br>
+
+Detalhes:
+* [Ícone Bate-Papo alterado para se encaixar melhor]<br><br>
+
+                        <strong>Responsáveis:</strong> [Drwng & mothra] | <strong>Data:</strong> [05/05/2026]
+                    </p>
+                </div>
+            </div>
+
+            <div id="log-1-5" class="version-item">
+                <div class="version-info">
+                    <h4 class="mc-font">V1.5 - Patch Notes Atualizado</h4>
+                    <p class="patch-notes-text">
+                        <strong>Mush:</strong><br>
+    + [Ícones Modos rotativos/temporários Adicionados]<br>
+    + [Ícones Menu SkyWars Adicionado]<br>
+    + [Ícones de “Suas coins” Adicionado aos menus]<br>
+    + [Ícones Tipo de recraft em Challenges:preferências Adicionado]<br>
+    + [Ícones BuildBattle em Solo e Duplas Adicionado]<br>
+    + [Ícones Dos lobbys do modo “Hide and Seek” Adicionado]<br>
+    + [Ícones Menu Duels atualizados]<br>
+    + [Ícones Gladiador Adicionado]<br>
+    + [Ícone de confirmação e rejeição Atualizados]<br>
+    + [Ícones Editores de inventário Adicionados]<br>
+    + [Ícones Estatísticas Duels Adicionados]<br>
+    + [Ícone de missão na mão “BuildBattle”  Adicionado]<br>
+    + [Ícone Votação de temas “BuildBattle” Adicionado]<br>
+    + [Ícones menu Hg Preferências Adicionado]<br>
+    + [Ícones de todos os lobbys adicionado]<br>
+    + [Ícones Para Identificar o lobby que você está Adicionado]<br>
+    + [Ícone Resgatar e não Possui XP No duels Foi Adicionado]<br>
+    + [Ícones SkyWars-Duels 1v1 2v2 Adicionados]<br>
+    + [Ícones Menu Esmeralda Skywars Adicionado]<br>
+    + [Ícones De Kit perks Menu do Sky Wars Adicionado]<br>
+    + [Ícones Cosméticos SkyWars Adicionado]<br>
+    + [Ícones Reativos em menu Preferências Geral Adicionado]<br>
+    + [Ícone Slot Vazio Bedwars Adicionado]<br>
+    + [Ícone importar compra Rápida Adicionado]<br>
+    + [Ícones Para CTF em partida OU já iniciada]<br>
+    + [Ícones Dos modos Sopa, Gladiador, NoDebuff, UHC, Combo, Gapple, Lava, The bridge, Sumo, Boxing, BedFight etc… Adicionado no menu Duels]<br>
+    /  [Ícones menu Duels Atualizados]<br>
+    /  [Ícone de amigos Atualizado]<br>
+    /  [Ícones dos vips com um visual minimamente Atualizados]<br>
+    !  [Ícones On Off em menus que não funcionava foi Corrigido]<br>
+    !  [Ícone sopa do deserto no Hg corrigido]<br>
+
+                        <strong>Kaizen:</strong><br>
+    + [Ícone Duels adicionados]<br>
+    + [Ícone Slot Vazio Bedwars Adicionado]<br>
+    + [Icone Bedwars Solo, Duplas, Trios e Quartetos / 1v1, 2v2, 3v3 e 4v4 Adicionados]<br>
+    + [Ícone luva de boxing Adicionado no Boxing com item em mãos Adicionado]<br>
+    + [Ícones Dos modos Sopa, Gladiador, Boxing, BedFight etc… Adicionado no menu Duels]<br>
+    /  [Ícone de Amigos pendentes Atualizados]<br>
+    /  [Ícones gerais Atualizados]<br>
+    /  [Ícones Cor Preferida Atualizados]<br>
+
+                        <strong>Flame:</strong><br>
+    + [Icone seletor de Modos Adicionado]<br><br>
+
+Otimização:<br>
+*[Textura dos ícones de Preferências e Preferências+ com resolução e taxa de quadros reduzidas]*<br><br>
+                        <strong>Responsáveis:</strong> [Drwng & mothra] | <strong>Data:</strong> [22/04/2026]
+                    </p>
+                </div>
+            </div>
+
+            <div id="log-1-4" class="version-item">
+                <div class="version-info">
+                    <h4 class="mc-font">V1.4 - Patch Notes Atualizado</h4>
+                    <p class="patch-notes-text">
+                        <strong>Hyris:</strong><br>
++ [Ícones de modos (2v2, 3v3, 4v4, 1v1v1v1, etc.) mais visíveis com camas coloridas]<br>
++ [Ícone de desafiar jogador no Duels]<br>
++/ [Ícones para Facilitar o reconhecimento do lobby que você está (não finalizado)]<br>
+                        <strong>Mush:</strong><br>
++ [Ícone Build e Hide and Seek adicionados e atualizados]<br>
++ [Ícone Spleef Duels adicionado]<br>
++ [Ícone do menu SkyWars adicionado]<br>
++ [Ícone Nascó Mandou adicionado]<br>
++ [Ícone de Resgatar XP Duels adicionado]<br>
++ [Ícone "Formato da tag" em Preferências adicionado]<br>
++ [Ícone de todos os modos Duels adicionado]<br>
++ [Ícones de preferências do Challenges]<br>
++ [Ícones de coins]<br>
++ [Ícones do Build Battle adicionado]<br>
++/ [Ícones para Facilitar o reconhecimento do lobby que você está (não finalizado)]<br>
++/ [Ícone de desafiar jogador no Duels]<br>
+/ [Ícones de modos (2v2, 3v3, 4v4, 1v1v1v1, etc.) mais visíveis com camas coloridas]<br>
+/ [Ícones de cosméticos Duels adicionados e atualizados]<br>
+/ [Ícones dos botões de ativado/desativado no menu Duels corrigidos]<br>
+/ [Ícone de amigo em "Meu Perfil" atualizado]<br>
+/ [Ícones Gerais de “Confirmar e Cancelar” melhorados]<br>
+/ [Ícones da Warp Gladiator melhorados]<br>
+/ [Ícone de selecionar mapas atualizado]<br>
+/ [Ícones do menu de missões agora são responsivos para missões 3/3, 4/4, 5/5, 6/6 e 7/7+]<br>
+/ [Ícone Play de todos os modos atualizado]<br>
+/ [Ícones de Kits (normal), Perks (normal) e Kits (Duels) atualizados]<br>
+                        <strong>Kaizen:</strong><br>
++ [Ícones de modos (2v2, 3v3, 4v4, 1v1v1v1, etc.) mais visíveis com camas coloridas]<br>
+/ [Ícone de amigo em "Meu Perfil" atualizado]<br>
++/ [Ícone de desafiar jogador no Duels]<br>
+                        <strong>Corrigidos:</strong><br>
+/ [Texturas de itens fora de enquadramento (ex: 14x, 17x, 12x) corrigidas para 16x]<br>
+/ [Ícones de Gadgets, Títulos, Partículas e seletor de jogos do Mush corrigidos]<br>
+/ [Padronização dos encantamentos dos modos de jogo ao visualizar amigos]<br><br>
+                     <strong>Responsáveis:</strong> [Drwng & mothra] | <strong>Data:</strong> [12/04/2026]
+                    </p>
+                </div>
+            </div>
+
+            <div id="log-1-3" class="version-item">
+                <div class="version-info">
+                    <h4 class="mc-font">V1.3 - Patch Notes Atualizado</h4>
+                    <p class="patch-notes-text">
+                     <strong>Hyris:</strong><br>
++ [Ícones seletor de modos]<br>
++ [Ícones dos lobbies]<br>
++ [Ícones Lobby de cada modo Ex: Lobby 1, 2, 3 e etc...]<br>
+                        <strong>Mush:</strong>
++ [Ícones seletor de modos]<br>
++ [Ícones dos lobbies adicionados]<br>
++ [Ícones Lobby de cada modo Ex: Lobby 1, 2, 3 e etc...]<br>
++ [Ícones menu Duels adicionados]<br>
++ [Ícones do menu Duels atualizado]<br>
++ [Ícones menu loja HG adicionados]<br>
+/ [Bugs corrigidos - picareta de ferro na loja com ícone do Haste no máximo]<br>
+                        <strong>Kaizen:</strong><br>
++ [Ícones seletor de modos]<br><br>
+
+                        <strong>Responsáveis:</strong> [Drwng & mothra] | <strong>Data:</strong> [11/04/2026]
+                    </p>
+                </div>
+            </div>
+
+            <div id="log-1-2" class="version-item">
+                <div class="version-info">
+                    <h4 class="mc-font">V1.2 - Patch Notes Atualizado</h4>
+                    <p class="patch-notes-text">
+                        <strong>Hyris:</strong><br>
++ [Ícones Menu de Melhorias]<br>
++ [Ícones Loja BedWars/In-game - Armaduras, Artilharia e Experimental]<br>
++ [Ícones Menus Preferencias de jogo]<br>
++ [Ícones Meu perfil]<br>
++ [Ícones Seletor de lobbies]<br>
++ [Ícones do Parkour]<br>
++ [Ícone Seletor de Jogos]<br>
++ [Ícones Aba Menu vip/staff]<br>
++ [Ícones Treino de ponte]<br>
+                        <strong>Kaizen:</strong><br>
++ [Ícones Menu de Melhorias]<br>
++ [Ícones Menu Loja Armaduras]<br>
++ [Ícones loja In-game]<br>
++ [Ícones Menus Preferencias de jogo]<br>
++ [Ícones Menu Meu perfil]<br>
++ [Ícones Seletor de lobbies]<br>
++ [Ícones voltar ao lobby]<br>
++ [Ícones do Parkour]<br>
++ [Ícones Seletor de Jogos]<br>
++ [Ícones Treino de ponte]<br><br>
+                        <strong>Responsáveis:</strong> [Drwng & mothra] | <strong>Data:</strong> [16/03/2026]
+                    </p>
+                </div>
+            </div>
+
+            <div id="log-1-1" class="version-item">
+                <div class="version-info">
+                    <h4 class="mc-font">V1.1 - Detalhes</h4>
+                    <p class="patch-notes-text">                  
+/ [Hotfix e outras melhorias]<br>
+/ [Otimizações Redução no tamanho do arquivo]<br><br>
+                        <strong>Responsáveis:</strong> [Drwng & mothra] | <strong>Data:</strong> [10/03/2026]
+                    </p>
+                </div>
+            </div>
+
+            <div id="log-1-0" class="version-item">
+                <div class="version-info">
+                    <h4 class="mc-font">V1.0 - Detalhes</h4>
+                    <p class="patch-notes-text">
+                     <strong>Mush:</strong><br>
+• Lançamento oficial da BedWars Overlay.<br>
++ [Ícones do seletor de modos]<br>
++ [Ícones dos lobbies]<br>
++ [Ícones dos Cosméticos BedWars]<br>
++ [Ícones das opções do Ultra+]<br>
++ [Ícones da loja in-game]<br>
++ [Alteração da posição das cabeças]<br><br>
+                        <strong>Responsáveis:</strong> [Drwng & mothra] | <strong>Data:</strong> [04/03/2026]
+                    </p>
+                </div>
+            </div>
+        </div>  
+</div>
+
+    <!-- CARD DE TOTAL -->
+    <div class="stats-card">
+        <h3 class="mc-font">Todos os Downloads</h3>
+        <div class="stats-number-wrapper">
+            <span id="download-counter" class="mc-font stats-number">0</span>
+            <span class="mc-font stats-label"></span>
+        </div>
+    </div>
+</div>
 
 <footer class="pixel-footer">
     <div class="mc-font" style="color: #ff6600; font-size: 10px; margin-bottom: 5px;">Minecraft Overlay © 2026</div>
@@ -220,24 +638,72 @@
         clickSound.play();
     }
 
+    function toggleArchive(listId, arrowId) {
+        playClick();
+        const list = document.getElementById(listId);
+        const arrow = document.getElementById(arrowId);
+        list.classList.toggle('open');
+        arrow.textContent = list.classList.contains('open') ? '▲' : '▼';
+    }
+
+    function goToLog(logId) {
+        playClick();
+        const detailsSection = document.getElementById('changelog-details');
+        const arrowMain = document.getElementById('changelog-arrow-main');
+        const targetLog = document.getElementById(logId);
+
+        if (!detailsSection.classList.contains('open')) {
+            detailsSection.classList.add('open');
+            arrowMain.textContent = '▲';
+        }
+
+        setTimeout(() => {
+            targetLog.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            targetLog.classList.add('highlight-log');
+            setTimeout(() => {
+                targetLog.classList.remove('highlight-log');
+            }, 2000);
+        }, 100);
+    }
+
+    async function updateGithubStats() {
+        const repo = "mwthra/MinecraftOverlayVersions";
+        try {
+            const response = await fetch(`https://api.github.com/repos/${repo}/releases`);
+            const releases = await response.json();
+            let totalGlobal = 0;
+
+            releases.forEach(release => {
+                const tag = release.tag_name;
+                let releaseCount = 0;
+                release.assets.forEach(asset => { releaseCount += asset.download_count; });
+                totalGlobal += releaseCount;
+
+                const versionElement = document.getElementById(`count-${tag}`);
+                if (versionElement) {
+                    versionElement.innerText = `${releaseCount.toLocaleString('pt-BR')} DOWNLOADS`;
+                }
+            });
+
+            const totalElement = document.getElementById('download-counter');
+            if (totalElement) {
+                totalElement.innerText = totalGlobal.toLocaleString('pt-BR');
+            }
+        } catch (error) {
+            console.error("Erro ao sincronizar com GitHub:", error);
+        }
+    }
+
     window.onload = function() {
+        updateGithubStats();
         const clickableItems = document.querySelectorAll('.pixel-btn, .nav-links a, .logo-container');
-        
         clickableItems.forEach(item => {
             item.addEventListener('click', function(e) {
                 const target = this.getAttribute('href');
-                const isBlank = this.getAttribute('target') === '_blank';
-
                 if (target && target !== '#' && !target.startsWith('#')) {
-                    if (!isBlank) {
-                        e.preventDefault();
-                        playClick();
-                        setTimeout(() => {
-                            window.location.href = target;
-                        }, 150);
-                    } else {
-                        playClick();
-                    }
+                    e.preventDefault();
+                    playClick();
+                    setTimeout(() => { window.location.href = target; }, 150);
                 }
             });
         });
