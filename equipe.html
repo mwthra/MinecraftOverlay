@@ -33,7 +33,7 @@
 
         .mc-font { font-family: 'Press Start 2P', cursive; text-transform: uppercase; }
 
-        /* --- CSS DA HEADER INCORPORADO --- */
+        /* HEADER */
         .pixel-header {
             background: #1a1a1a;
             border-bottom: 4px solid #333;
@@ -171,7 +171,7 @@
 
         .card:hover .copy-discord { transform: translateY(0); }
 
-        /* --- CSS DO FOOTER INCORPORADO --- */
+        /* FOOTER INCORPORADO */
         .pixel-footer {
             margin-top: auto;
             background: #121212;
@@ -254,6 +254,7 @@
         <h2 class="mc-font subtitulo" style="color: #00ff00;">Apoiadores de Esmeralda</h2>
         <div class="grid-equipe">
             <div class="card"><img src="https://avatar-cyan.vercel.app/api/pfp/1153048581960368139/image"><h4 class="mc-font">guiturati</h4></div>
+            <div class="card"><img src="https://avatar-cyan.vercel.app/api/pfp/1197357484940218428/image"><h4 class="mc-font">mxtoss</h4></div>
             <div class="card"><img src="https://avatar-cyan.vercel.app/api/pfp/1473192442105954446/image"><h4 class="mc-font">cutedog</h4></div>
         </div>
     </div>
@@ -305,7 +306,6 @@
         });
     }
 
-    // Gerenciador de cliques com delay para navegação da Header
     document.addEventListener('click', function(e) {
         const target = e.target.closest('.nav-link-click');
         if (target) {
