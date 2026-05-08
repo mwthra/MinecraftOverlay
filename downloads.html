@@ -31,7 +31,7 @@
 
         .mc-font { font-family: 'Press Start 2P', cursive; text-transform: uppercase; }
 
-        /* --- HEADER --- */
+        /* HEADER */
         .pixel-header {
             background: #1a1a1a;
             border-bottom: 4px solid #333;
@@ -90,7 +90,7 @@
             }
         }
 
-        /* --- FOOTER --- */
+        /* FOOTER */
         .pixel-footer {
             margin-top: auto;
             background: #121212;
@@ -108,24 +108,26 @@
             line-height: 1.2;
         }
 
-        /* --- CONTEÚDO --- */
+        /* CONTEÚDO */
         .main-wrapper {
             width: 100%;
-            padding: 60px 0;
+            padding: 25px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        .pixel-card { 
+        .pixel-card {
             display: flex; 
             flex-direction: column; 
             background: #121212; 
-            border: 4px solid #333; 
+            border: 3px solid #333;
+            box-sizing: border-box;
+            margin: 20px;
             width: 92%; 
             max-width: 950px; 
-            margin: 0 auto 30px; 
-            image-rendering: pixelated; 
+            image-rendering: pixelated;
+            word-break: break-all;
         }
         
         @media (min-width: 850px) {
@@ -141,23 +143,24 @@
         .pixel-title { font-size: 3.6rem; color: #ff6600; text-shadow: 3px 3px #000; margin-top: 0; margin-bottom: 10px; }
         .pixel-p { font-size: 1.4rem; line-height: 1.3; margin-bottom: 25px; }
 
-        /* CARD DE DOWNLOADS  */
+        /* CARD DE DOWNLOADS TOTAIS */
         .stats-card {
-            width: 92%;
-            max-width: 950px;
             background: #1a1a1a;
-            border: 4px solid #333;
-            margin: 20px auto 30px;
-            padding: 20px;
+            border: 3px solid #333;
+            padding: 15px;
+            margin: 20px;
             text-align: center;
             box-sizing: border-box;
             image-rendering: pixelated;
+            word-break: break-all;
+            width: 92%;
+            max-width: 950px;
         }
         
         .stats-card h3 { 
-            margin: 0 0 15px 0; 
+            margin: 0 0 25px 0; 
             color: #ff6600; 
-            font-size: 12px; 
+            font-size: 15px;
         }
 
         .stats-number-wrapper {
@@ -205,7 +208,7 @@
             flex-direction: row; 
             align-items: center; 
             gap: 15px; 
-            flex-wrap: wrap; 
+            flex-wrap: wrap;
         }
         
         .btn-group { display: flex; gap: 15px; flex-wrap: wrap; }
@@ -222,7 +225,8 @@
             font-size: 12px; 
             display: flex; 
             justify-content: space-between; 
-            align-items: center; 
+            align-items: center;
+            word-break: break-all;
         }
 
         .archive-content { 
@@ -311,7 +315,7 @@
                 </div>
                 <div class="btn-container">
                     <div class="btn-group">
-                        <a href="https://github.com/mwthra/MinecraftOverlayVersions/releases/download/v1.5/aMine.2craft.6Overlay.Extrair.v1.5.rar" class="pixel-btn mc-font">DOWNLOAD</a>
+                        <a href="https://github.com/mwthra/MinecraftOverlayVersions/releases/download/v1.5/aMine.2craft.6Overlay.Extrair.v1.5.rar" class="pixel-btn mc-font">BAIXAR</a>
                         <button onclick="goToLog('log-1-5')" class="pixel-btn mc-font">CHANGELOG</button>
                     </div>
                     <div id="count-v1.5" class="btn-static mc-font">... DOWNLOADS</div>
@@ -325,7 +329,7 @@
                 </div>
                 <div class="btn-container">
                     <div class="btn-group">
-                        <a href="https://github.com/mwthra/MinecraftOverlayVersions/releases/download/v1.4/4Bed.fWars.Ov.berl.3ay.6.Pack.Extrair.v1.4.rar" class="pixel-btn mc-font">DOWNLOAD</a>
+                        <a href="https://github.com/mwthra/MinecraftOverlayVersions/releases/download/v1.4/4Bed.fWars.Ov.berl.3ay.6.Pack.Extrair.v1.4.rar" class="pixel-btn mc-font">BAIXAR</a>
                         <button onclick="goToLog('log-1-4')" class="pixel-btn mc-font">CHANGELOG</button>
                     </div>
                     <div id="count-v1.4" class="btn-static mc-font">... DOWNLOADS</div>
@@ -339,7 +343,7 @@
                 </div>
                 <div class="btn-container">
                     <div class="btn-group">
-                        <a href="https://github.com/mwthra/MinecraftOverlayVersions/releases/download/v1.3/4Bed.fWars.Ov.berl.3ay.6.Pack.Extrair.v1.3.zip" class="pixel-btn mc-font">DOWNLOAD</a>
+                        <a href="https://github.com/mwthra/MinecraftOverlayVersions/releases/download/v1.3/4Bed.fWars.Ov.berl.3ay.6.Pack.Extrair.v1.3.zip" class="pixel-btn mc-font">BAIXAR</a>
                         <button onclick="goToLog('log-1-3')" class="pixel-btn mc-font">CHANGELOG</button>
                     </div>
                     <div id="count-v1.3" class="btn-static mc-font">... DOWNLOADS</div>
@@ -353,7 +357,7 @@
                 </div>
                 <div class="btn-container">
                     <div class="btn-group">
-                        <a href="https://github.com/mwthra/MinecraftOverlayVersions/releases/download/v1.2/4Bed.fWars.Ov.berl.3ay.6.Pack.Extrair.v1.2.zip" class="pixel-btn mc-font">DOWNLOAD</a>
+                        <a href="https://github.com/mwthra/MinecraftOverlayVersions/releases/download/v1.2/4Bed.fWars.Ov.berl.3ay.6.Pack.Extrair.v1.2.zip" class="pixel-btn mc-font">BAIXAR</a>
                         <button onclick="goToLog('log-1-2')" class="pixel-btn mc-font">CHANGELOG</button>
                     </div>
                     <div id="count-v1.2" class="btn-static mc-font">... DOWNLOADS</div>
@@ -367,7 +371,7 @@
                 </div>
                 <div class="btn-container">
                     <div class="btn-group">
-                        <a href="https://github.com/mwthra/MinecraftOverlayVersions/releases/download/v1.1/4Bed.fWars.Ov.berl.3ay.6.Pack.Extrair.v1.1.rar" class="pixel-btn mc-font">DOWNLOAD</a>
+                        <a href="https://github.com/mwthra/MinecraftOverlayVersions/releases/download/v1.1/4Bed.fWars.Ov.berl.3ay.6.Pack.Extrair.v1.1.rar" class="pixel-btn mc-font">BAIXAR</a>
                         <button onclick="goToLog('log-1-1')" class="pixel-btn mc-font">CHANGELOG</button>
                     </div>
                     <div id="count-v1.1" class="btn-static mc-font">... DOWNLOADS</div>
@@ -381,7 +385,7 @@
                 </div>
                 <div class="btn-container">
                     <div class="btn-group">
-                        <a href="https://github.com/mwthra/MinecraftOverlayVersions/releases/download/v1.0/4Bed.fWars.Ov.berl.3ay.6.Pack.Extrair.v1.0.zip" class="pixel-btn mc-font">DOWNLOAD</a>
+                        <a href="https://github.com/mwthra/MinecraftOverlayVersions/releases/download/v1.0/4Bed.fWars.Ov.berl.3ay.6.Pack.Extrair.v1.0.zip" class="pixel-btn mc-font">BAIXAR</a>
                         <button onclick="goToLog('log-1-0')" class="pixel-btn mc-font">CHANGELOG</button>
                     </div>
                     <div id="count-v1.0" class="btn-static mc-font">... DOWNLOADS</div>
@@ -621,7 +625,6 @@ Otimização:<br>
         <h3 class="mc-font">Todos os Downloads</h3>
         <div class="stats-number-wrapper">
             <span id="download-counter" class="mc-font stats-number">0</span>
-            <span class="mc-font stats-label"></span>
         </div>
     </div>
 </div>
