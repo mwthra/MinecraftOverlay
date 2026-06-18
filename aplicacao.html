@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Overlay - Aplique-se</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles/css/header.css">
+    <link rel="stylesheet" href="styles/css/footer.css">
+
+    <style>
+        /* CONFIGURAÇÕES GERAIS */
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        html::-webkit-scrollbar { display: none; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0a0a0a;
+            color: white;
+            font-family: 'VT323', monospace;
+            letter-spacing: 1px;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .mc-font { font-family: 'Press Start 2P', cursive; text-transform: uppercase; }
+
+        /* WRAPPER PRINCIPAL */
+        .main-wrapper {
+            width: 100%;
+            padding: 60px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* CARD PADRÃO */
+        .pixel-card {
+            display: flex;
+            flex-direction: column;
+            background: #121212;
+            border: 4px solid #333;
+            width: 92%;
+            max-width: 950px;
+            margin: 0 auto 30px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .subtitulo {
+            color: #FFAA00;
+            font-size: 16px;
+            margin: 10px 0 25px 0;
+            text-align: center;
+        }
+
+        /* VAGAS */
+        .vagas-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .vaga-card {
+            flex: 0 0 calc(50% - 15px);
+            max-width: 430px;
+            background: rgba(30,30,30,0.88);
+            border: 1px solid #333;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: transform 0.2s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vaga-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255,102,0,0.3);
+            border-color: #ff6600;
+        }
+
+        .vaga-card h4 {
+            font-size: 11px;
+            margin: 0 0 8px 0;
+            color: #ff6600;
+        }
+
+        .vaga-card p {
+            font-size: 1.2rem;
+            margin: 5px 0;
+            color: #ccc;
+            line-height: 1.4;
+        }
+
+        .vaga-status {
+            display: inline-block;
+            font-size: 9px;
+            padding: 4px 10px;
+            margin-top: 12px;
+            border: 2px solid;
+        }
+
+        .status-aberta { color: #00ff00; border-color: #00ff00; background: rgba(0,255,0,0.05); }
+        .status-fechada { color: #ff3333; border-color: #ff3333; background: rgba(255,0,0,0.05); }
+
+        /* SEÇÃO REQUISITOS */
+        .archive-section {
+            width: 92%;
+            max-width: 950px;
+            margin: 0 auto 20px;
+        }
+
+        .archive-header {
+            background: #1a1a1a;
+            border: 3px solid #333;
+            padding: 15px;
+            cursor: pointer;
+            color: #ff6600;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .archive-content {
+            display: none;
+            background: #121212;
+            border: 3px solid #333;
+            border-top: none;
+            padding: 10px;
+        }
+
+        .archive-content.open { display: block; }
+
+        .req-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 15px 20px;
+            border-bottom: 2px solid #222;
+        }
+
+        .req-item:last-child { border-bottom: none; }
+
+        .req-icon {
+            font-size: 1.8rem;
+            color: #ff6600;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .req-info h4 {
+            margin: 0 0 6px 0;
+            color: #ff6600;
+            font-size: 11px;
+        }
+
+        .req-info p {
+            margin: 0;
+            color: #ccc;
+            font-size: 1.2rem;
+            line-height: 1.4;
+        }
+
+        /* FORMULÁRIO */
+        .form-section {
+            width: 92%;
+            max-width: 950px;
+            margin: 0 auto 30px;
+            background: #121212;
+            border: 4px solid #333;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+
+        .form-title {
+            color: #ff6600;
+            font-size: 14px;
+            margin: 0 0 25px 0;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 9px;
+            color: #aaa;
+            margin-bottom: 8px;
+        }
+
+        .form-group label span {
+            color: #ff6600;
+        }
+
+        .form-control {
+            width: 100%;
+            background: #1a1a1a;
+            border: 2px solid #333;
+            color: white;
+            font-family: 'VT323', monospace;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+            padding: 10px 12px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+            resize: none;
+        }
+
+        .form-control:focus {
+            border-color: #ff6600;
+        }
+
+        .form-control::placeholder {
+            color: #555;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .pixel-btn {
+            background: #ff6600;
+            color: #000;
+            border: 3px solid #000;
+            padding: 10px 20px;
+            font-size: 10px;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px #000;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.1s;
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pixel-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px #000; }
+        .pixel-btn:disabled {
+            background: #555;
+            cursor: not-allowed;
+            box-shadow: 4px 4px 0px #000;
+            transform: none;
+        }
+
+        .btn-center { text-align: center; margin-top: 10px; }
+
+        /* SELECT customizado */
+        select.form-control {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M0 0l6 8 6-8z' fill='%23ff6600'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 35px;
+            cursor: pointer;
+        }
+
+        select.form-control option {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        /* AVISO FECHADA */
+        .aviso-fechada {
+            background: rgba(255,0,0,0.05);
+            border: 2px solid #ff3333;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            color: #ff6666;
+            font-size: 1.2rem;
+            line-height: 1.4;
+            display: none;
+        }
+
+        /* TOAST */
+        .toast-mc {
+            position: fixed;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #3f3f3f;
+            color: #ff6600;
+            padding: 12px 20px;
+            border: 3px solid #ff6600;
+            font-size: 10px;
+            z-index: 9999999;
+            box-shadow: 4px 4px 0 #000;
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 750px) {
+            .vaga-card { flex: 0 0 100%; max-width: 100%; }
+            .form-row { flex-direction: column; gap: 0; }
+            .form-section { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="pixel-header">
+    <a href="index.html" class="logo-container nav-link-click">
+        <img src="styles/img/BedWarsOverlayLogo.png" alt="Logo" class="header-logo-img">
+        <span class="header-logo mc-font">Minecraft Overlay</span>
+    </a>
+    <nav class="nav-links mc-font">
+        <a href="index.html" class="nav-link-click">Início</a>
+        <a href="Downloads.html" class="nav-link-click">Downloads</a>
+        <a href="Equipe.html" class="nav-link-click">Equipe</a>
+        <a href="Contato.html" class="nav-link-click">Contato</a>
+        <a href="pix.html" class="nav-link-click">Doações</a>
+    </nav>
+</header>
+
+<div class="main-wrapper">
+    <h1 class="mc-font" style="font-size: 28px; color: white; margin-bottom: 40px; text-align: center;">Aplicar-se</h1>
+
+    <div class="pixel-card">
+        <h2 class="mc-font subtitulo">Vagas Disponíveis</h2>
+        <div class="vagas-grid">
+
+            <div class="vaga-card">
+                <h4 class="mc-font">🎨 Designer</h4>
+                <p>Responsável pela criação e manutenção de ícones, texturas e identidade visual da overlay.</p>
+                <p style="color:#888; margin-top:10px; font-size:1.1rem;">Experiência com Photoshop / Aseprite / Paint.NET</p>
+                <span class="vaga-status status-aberta mc-font">● ABERTA</span>
+            </div>
+
+            <div class="vaga-card">
+                <h4 class="mc-font">🧪 Beta Tester</h4>
+                <p>Testa versões em desenvolvimento, reporta bugs e valida a compatibilidade entre servidores.</p>
+                <p style="color:#888; margin-top:10px; font-size:1.1rem;">Joga ativamente nos servidores suportados</p>
+                <span class="vaga-status status-aberta mc-font">● ABERTA</span>
+            </div>
+
+            <div class="vaga-card">
+                <h4 class="mc-font">🧊 Modelador 3D</h4>
+                <p>Cria modelos tridimensionais customizados para itens, blocos ou cosméticos integrados à overlay.</p>
+                <p style="color:#888; margin-top:10px; font-size:1.1rem;">Domínio em Blockbench ou Cubik Studio</p>
+                <span class="vaga-status status-aberta mc-font">● ABERTA</span>
+            </div>
+
+            <div class="vaga-card">
+                <h4 class="mc-font">⚙️ Desenvolvedor</h4>
+                <p>Auxilia no desenvolvimento de ferramentas, scripts e automações relacionadas ao projeto.</p>
+                <p style="color:#888; margin-top:10px; font-size:1.1rem;">Conhecimento em HTML, CSS ou Lua</p>
+                <span class="vaga-status status-fechada mc-font">● FECHADA</span>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="archive-section">
+        <div class="archive-header mc-font" onclick="toggleArchive('req-list', 'req-arrow')">
+            <span>REQUISITOS GERAIS</span>
+            <span id="req-arrow">▼</span>
+        </div>
+        <div id="req-list" class="archive-content">
+            <div class="req-item">
+                <div class="req-icon">▸</div>
+                <div class="req-info">
+                    <h4 class="mc-font">Ter 16 anos ou mais</h4>
+                    <p>O projeto é voltado para maiores de 16 anos. Candidatos mais jovens não serão aceitos.</p>
+                </div>
+            </div>
+            <div class="req-item">
+                <div class="req-icon">▸</div>
+                <div class="req-info">
+                    <h4 class="mc-font">Ter Discord</h4>
+                    <p>Toda a comunicação interna da equipe é feita pelo Discord. É obrigatório possuir conta ativa.</p>
+                </div>
+            </div>
+            <div class="req-item">
+                <div class="req-icon">▸</div>
+                <div class="req-info">
+                    <h4 class="mc-font">Comprometimento</h4>
+                    <p>Esperamos dedicação real. Membros inativos sem aviso prévio serão desligados da equipe.</p>
+                </div>
+            </div>
+            <div class="req-item">
+                <div class="req-icon">▸</div>
+                <div class="req-info">
+                    <h4 class="mc-font">Respeito</h4>
+                    <p>Conduta respeitosa com todos os membros da equipe é inegociável.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h2 class="mc-font form-title">Formulário de Aplicação</h2>
+
+        <div id="aviso-fechada" class="aviso-fechada mc-font">
+            ⚠ Esta vaga está fechada no momento. Escolha uma vaga disponível.
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label class="mc-font">Nick no Minecraft <span>*</span></label>
+                <input type="text" id="nick" class="form-control" placeholder="SeuNick123" maxlength="16">
+            </div>
+            <div class="form-group">
+                <label class="mc-font">Usuário do Discord <span>*</span></label>
+                <input type="text" id="discord" class="form-control" placeholder="seudiscord" maxlength="32">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="mc-font">Idade <span>*</span></label>
+            <input type="number" id="idade" class="form-control" placeholder="Ex: 17" min="16" max="99" style="max-width:150px;">
+        </div>
+
+        <div class="form-group">
+            <label class="mc-font">Vaga desejada <span>*</span></label>
+            <select id="vaga" class="form-control" onchange="checkVaga(this)">
+                <option value="">-- SELECIONE --</option>
+                <option value="designer">Designer</option>
+                <option value="betatester">Beta Tester</option>
+                <option value="modelador">Modelador 3D</option>
+                <option value="desenvolvedor" disabled>Desenvolvedor (Fechada)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="mc-font">Por que você quer entrar na equipe? <span>*</span></label>
+            <textarea id="motivo" class="form-control" rows="4" placeholder="Descreva sua motivação e o que pode agregar ao projeto..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label class="mc-font">Já trabalhou em outros projetos semelhantes? Se sim, quais? <span>*</span></label>
+            <textarea id="experiencia" class="form-control" rows="3" placeholder="Conte sobre suas experiências anteriores em outros servidores, texturas ou equipes..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label class="mc-font">Portfólio / Links <span style="color:#666;">(opcional)</span></label>
+            <input type="text" id="portfolio" class="form-control" placeholder="Links do seu trabalho, Discord, YouTube...">
+        </div>
+
+        <div class="form-group">
+            <label class="mc-font">Onde nos encontrou?</label>
+            <select id="origem" class="form-control">
+                <option value="">-- SELECIONE --</option>
+                <option value="discord">Servidor do Discord</option>
+                <option value="amigo">Indicação de amigo</option>
+                <option value="youtube">YouTube</option>
+                <option value="outro">Outro</option>
+            </select>
+        </div>
+
+        <div class="btn-center">
+            <button id="btn-enviar" class="pixel-btn mc-font" onclick="enviarFormulario()">ENVIAR APLICAÇÃO</button>
+        </div>
+    </div>
+
+</div>
+
+<footer class="pixel-footer">
+    <div class="mc-font" style="color: #ff6600; font-size: 10px; margin-bottom: 5px;">Minecraft Overlay © 2026</div>
+    <div class="footer-disclaimer">
+        Este projeto é um conteúdo independente feito por fãs. Não somos afiliados, associados, autorizados ou endossados pela Microsoft Corporation ou Mojang Synergies AB.
+    </div>
+</footer>
+
+<script>
+    const clickSound = new Audio('styles/sons/minecraft-click.mp3');
+
+    function playClick() {
+        clickSound.currentTime = 0;
+        clickSound.play();
+    }
+
+    const WORKER_URL = 'https://minecraftoverlay.mowothra.workers.dev/';
+
+    function showToast(msg) {
+        const toast = document.createElement('div');
+        toast.className = 'toast-mc';
+        toast.textContent = msg;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 2500);
+    }
+
+    function toggleArchive(listId, arrowId) {
+        playClick();
+        const list = document.getElementById(listId);
+        const arrow = document.getElementById(arrowId);
+        list.classList.toggle('open');
+        arrow.textContent = list.classList.contains('open') ? '▲' : '▼';
+    }
+
+    function checkVaga(select) {
+        playClick();
+        const aviso = document.getElementById('aviso-fechada');
+        const btn = document.getElementById('btn-enviar');
+        if (select.value === 'desenvolvedor') {
+            aviso.style.display = 'block';
+            btn.disabled = true;
+        } else {
+            aviso.style.display = 'none';
+            btn.disabled = false;
+        }
+    }
+
+    function enviarFormulario() {
+        playClick();
+
+        const nick        = document.getElementById('nick').value.trim();
+        const discord     = document.getElementById('discord').value.trim();
+        const idade       = parseInt(document.getElementById('idade').value);
+        const vaga        = document.getElementById('vaga').value;
+        const motivo      = document.getElementById('motivo').value.trim();
+        const experiencia = document.getElementById('experiencia').value.trim();
+        const portfolio   = document.getElementById('portfolio').value.trim();
+        const origem      = document.getElementById('origem').value;
+
+        if (!nick || !discord || !vaga || !motivo || !experiencia) {
+            showToast('⚠ PREENCHA TODOS OS CAMPOS OBRIGATÓRIOS!');
+            return;
+        }
+
+        if (!idade || idade < 16) {
+            showToast('⚠ VOCÊ PRECISA TER 16+ ANOS!');
+            return;
+        }
+
+        const btn = document.getElementById('btn-enviar');
+        btn.disabled = true;
+        showToast('⏳ ENVIANDO...');
+
+        // Payload unificado identificando o tipo de ação como "aplicacao"
+        const dadosForm = {
+            action: 'aplicacao',
+            nick: nick,
+            discord: discord,
+            idade: idade,
+            vaga: vaga,
+            motivo: motivo,
+            experiencia: experiencia,
+            portfolio: portfolio || 'Não informado',
+            origem: origem || 'Não informado'
+        };
+
+        fetch(WORKER_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dadosForm)
+        })
+        .then(response => {
+            if (response.ok) {
+                showToast('✅ APLICAÇÃO ENVIADA!');
+                limparForm();
+            } else {
+                throw new Error();
+            }
+        })
+        .catch(() => {
+            showToast('❌ ERRO AO ENVIAR. TENTE NOVAMENTE.');
+            btn.disabled = false;
+        });
+    }
+
+    function limparForm() {
+        ['nick','discord','idade','vaga','motivo','experiencia','portfolio','origem'].forEach(id => {
+            document.getElementById(id).value = '';
+        });
+        document.getElementById('aviso-fechada').style.display = 'none';
+        document.getElementById('btn-enviar').disabled = false;
+    }
+
+    document.addEventListener('click', function(e) {
+        const target = e.target.closest('.nav-link-click');
+        if (target) {
+            e.preventDefault();
+            playClick();
+            const href = target.getAttribute('href');
+            setTimeout(() => { window.location.href = href; }, 150);
+        }
+    });
+</script>
+
+</body>
+</html>
