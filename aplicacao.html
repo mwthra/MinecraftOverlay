@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft Overlay - Aplique-se</title>
+    <title>Aplicar-se - Minecraft Overlay</title>
     <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="styles/css/header.css">
-    <link rel="stylesheet" href="styles/css/footer.css">
-
     <style>
         /* CONFIGURAÇÕES GERAIS */
         html {
@@ -32,6 +29,65 @@
         }
 
         .mc-font { font-family: 'Press Start 2P', cursive; text-transform: uppercase; }
+
+        /* --- HEADER --- */
+        .pixel-header {
+            background: #1a1a1a;
+            border-bottom: 4px solid #333;
+            padding: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            image-rendering: pixelated;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .header-logo-img {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #ff6600;
+            border-radius: 2px;
+        }
+
+        .header-logo {
+            color: #ff6600;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 10px;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #ff6600;
+        }
+
+        @media (max-width: 750px) {
+            .pixel-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
 
         /* WRAPPER PRINCIPAL */
         .main-wrapper {
@@ -113,7 +169,7 @@
         .status-aberta { color: #00ff00; border-color: #00ff00; background: rgba(0,255,0,0.05); }
         .status-fechada { color: #ff3333; border-color: #ff3333; background: rgba(255,0,0,0.05); }
 
-        /* SEÇÃO REQUISITOS */
+        /* SEÇÃO REQUISITOS / ACCORDION */
         .archive-section {
             width: 92%;
             max-width: 950px;
@@ -308,6 +364,24 @@
             text-transform: uppercase;
         }
 
+        /* --- FOOTER CSS --- */
+        .pixel-footer {
+            margin-top: auto;
+            background: #121212;
+            border-top: 4px solid #333;
+            padding: 20px 10px;
+            text-align: center;
+            image-rendering: pixelated;
+        }
+
+        .footer-disclaimer {
+            color: #555;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 10px auto;
+            line-height: 1.2;
+        }
+
         @media (max-width: 750px) {
             .vaga-card { flex: 0 0 100%; max-width: 100%; }
             .form-row { flex-direction: column; gap: 0; }
@@ -318,16 +392,16 @@
 <body>
 
 <header class="pixel-header">
-    <a href="index.html" class="logo-container nav-link-click">
-        <img src="styles/img/BedWarsOverlayLogo.png" alt="Logo" class="header-logo-img">
+    <a href="/" class="logo-container nav-link-click">
+        <img src="img/BedWarsOverlayLogo.png" alt="Logo" class="header-logo-img">
         <span class="header-logo mc-font">Minecraft Overlay</span>
     </a>
     <nav class="nav-links mc-font">
-        <a href="index.html" class="nav-link-click">Início</a>
-        <a href="Downloads.html" class="nav-link-click">Downloads</a>
-        <a href="Equipe.html" class="nav-link-click">Equipe</a>
-        <a href="Contato.html" class="nav-link-click">Contato</a>
-        <a href="pix.html" class="nav-link-click">Doações</a>
+        <a href="/">Início</a>
+        <a href="downloads">Downloads</a>
+        <a href="equipe">Equipe</a>
+        <a href="contato">Contato</a>
+        <a href="doacoes">Doações</a>
     </nav>
 </header>
 
@@ -416,17 +490,17 @@
         <div class="form-row">
             <div class="form-group">
                 <label class="mc-font">Nick no Minecraft <span>*</span></label>
-                <input type="text" id="nick" class="form-control" placeholder="SeuNick123" maxlength="16">
+                <input type="text" id="nick" class="form-control" placeholder="Nick no Minecraft" maxlength="16">
             </div>
             <div class="form-group">
                 <label class="mc-font">Usuário do Discord <span>*</span></label>
-                <input type="text" id="discord" class="form-control" placeholder="seudiscord" maxlength="32">
+                <input type="text" id="discord" class="form-control" placeholder="Seu discord (Ex: @user)" maxlength="32">
             </div>
         </div>
 
         <div class="form-group">
             <label class="mc-font">Idade <span>*</span></label>
-            <input type="number" id="idade" class="form-control" placeholder="Ex: 17" min="16" max="99" style="max-width:150px;">
+            <input type="number" id="idade" class="form-control" placeholder="Ex: 17" min="16" max="67" style="max-width:150px;">
         </div>
 
         <div class="form-group">
@@ -488,7 +562,8 @@
         clickSound.play();
     }
 
-    const WORKER_URL = 'https://minecraftoverlay.mowothra.workers.dev/';
+    // Altere para a URL correta da sua Cloudflare Worker quando colocar em produção
+    const WORKER_URL = 'https://seu-worker.seu-subdominio.workers.dev';
 
     function showToast(msg) {
         const toast = document.createElement('div');
@@ -545,7 +620,7 @@
         btn.disabled = true;
         showToast('⏳ ENVIANDO...');
 
-        // Payload unificado identificando o tipo de ação como "aplicacao"
+        // Monta o payload unificado identificando o tipo de ação como "aplicacao"
         const dadosForm = {
             action: 'aplicacao',
             nick: nick,
@@ -585,8 +660,9 @@
         document.getElementById('btn-enviar').disabled = false;
     }
 
+    // Adaptado para tocar som ao clicar nos links do header/nav conforme a base do Contato.html
     document.addEventListener('click', function(e) {
-        const target = e.target.closest('.nav-link-click');
+        const target = e.target.closest('.nav-links a, .logo-container');
         if (target) {
             e.preventDefault();
             playClick();
