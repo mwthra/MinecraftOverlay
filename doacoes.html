@@ -356,7 +356,11 @@
                 const response = await fetch("https://minecraftoverlay.mowothra.workers.dev/", { 
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ nome: n, discord: d, valor: v })
+                    body: JSON.stringify({ 
+                        action: 'doacao',
+                        nome: n, 
+                        discord: d, 
+                        valor: v
                 });
 
                 if (response.ok) {
