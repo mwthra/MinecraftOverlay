@@ -118,7 +118,7 @@
             text-align: center;
         }
 
-        /* VAGAS */
+        /* VAGAS (AGORA BOTÕES) */
         .vagas-grid {
             display: flex;
             flex-wrap: wrap;
@@ -131,18 +131,38 @@
             flex: 0 0 calc(50% - 15px);
             max-width: 430px;
             background: rgba(30,30,30,0.88);
-            border: 1px solid #333;
+            border: 2px solid #333;
             padding: 20px;
             box-sizing: border-box;
-            transition: transform 0.2s ease-in-out;
+            transition: transform 0.2s ease-in-out, border-color 0.2s, box-shadow 0.2s;
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .vaga-card:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 20px rgba(255,102,0,0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255,102,0,0.2);
             border-color: #ff6600;
+        }
+
+        /* ESTADO ATIVO DO CARD SELECIONADO */
+        .vaga-card.ativa {
+            border-color: #ff6600;
+            background: rgba(255, 102, 0, 0.05);
+            box-shadow: 0 0 15px rgba(255,102,0,0.3);
+            transform: scale(1.02);
+        }
+
+        .vaga-card.fechada {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        
+        .vaga-card.fechada:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: #ff3333;
         }
 
         .vaga-card h4 {
@@ -228,7 +248,16 @@
             line-height: 1.4;
         }
 
-        /* FORMULÁRIO */
+        /* FORMULÁRIO OCULTO INICIALMENTE */
+        #area-formulario {
+            display: none;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
         .form-section {
             width: 92%;
             max-width: 950px;
@@ -242,6 +271,13 @@
         .form-title {
             color: #ff6600;
             font-size: 14px;
+            margin: 0 0 5px 0;
+            text-align: center;
+        }
+
+        .form-subtitle {
+            color: #00ff00;
+            font-size: 10px;
             margin: 0 0 25px 0;
             text-align: center;
         }
@@ -293,6 +329,14 @@
             flex: 1;
         }
 
+        /* SEÇÃO DINÂMICA DE PERGUNTAS */
+        .perguntas-dinamicas {
+            background: rgba(255, 102, 0, 0.05);
+            border-left: 4px solid #ff6600;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
         .pixel-btn {
             background: #ff6600;
             color: #000;
@@ -333,18 +377,6 @@
         select.form-control option {
             background: #1a1a1a;
             color: white;
-        }
-
-        /* AVISO FECHADA */
-        .aviso-fechada {
-            background: rgba(255,0,0,0.05);
-            border: 2px solid #ff3333;
-            padding: 15px 20px;
-            margin-bottom: 20px;
-            color: #ff6666;
-            font-size: 1.2rem;
-            line-height: 1.4;
-            display: none;
         }
 
         /* TOAST */
@@ -410,32 +442,32 @@
     <h1 class="mc-font" style="font-size: 28px; color: white; margin-bottom: 40px; text-align: center;">Aplicar-se</h1>
 
     <div class="pixel-card">
-        <h2 class="mc-font subtitulo">Vagas Disponíveis</h2>
+        <h2 class="mc-font subtitulo">Escolha uma vaga para se inscrever:</h2>
         <div class="vagas-grid">
 
-            <div class="vaga-card">
-                <h4 class="mc-font">🎨 Designer</h4>
+            <div class="vaga-card" onclick="selecionarVaga('designer', this)">
+                <h4 class="mc-font">Designer</h4>
                 <p>Responsável pela criação e manutenção de ícones, texturas e identidade visual da overlay.</p>
                 <p style="color:#888; margin-top:10px; font-size:1.1rem;">Experiência com Photoshop / Aseprite / Paint.NET</p>
                 <span class="vaga-status status-aberta mc-font">ABERTA</span>
             </div>
 
-            <div class="vaga-card">
-                <h4 class="mc-font">🧪 Beta Tester</h4>
+            <div class="vaga-card" onclick="selecionarVaga('betatester', this)">
+                <h4 class="mc-font">Beta Tester</h4>
                 <p>Testa versões em desenvolvimento, reporta bugs e valida a compatibilidade entre servidores.</p>
                 <p style="color:#888; margin-top:10px; font-size:1.1rem;">Jogue ativamente nos servidores suportados</p>
                 <span class="vaga-status status-aberta mc-font">ABERTA</span>
             </div>
 
-            <div class="vaga-card">
-                <h4 class="mc-font">🧊 Modelador 3D</h4>
+            <div class="vaga-card" onclick="selecionarVaga('modelador', this)">
+                <h4 class="mc-font">Modelador 3D</h4>
                 <p>Cria modelos tridimensionais customizados para itens ou blocos integrados à overlay.</p>
                 <p style="color:#888; margin-top:10px; font-size:1.1rem;">Domínio em Blockbench</p>
                 <span class="vaga-status status-aberta mc-font">ABERTA</span>
             </div>
 
-            <div class="vaga-card">
-                <h4 class="mc-font">⚙️ Desenvolvedor</h4>
+            <div class="vaga-card fechada" onclick="selecionarVaga('desenvolvedor', this)">
+                <h4 class="mc-font">Desenvolvedor</h4>
                 <p>Auxilia no desenvolvimento do site e na programação de bots para o Discord.</p>
                 <p style="color:#888; margin-top:10px; font-size:1.1rem;">Conhecimento em HTML, CSS e JAVA</p>
                 <span class="vaga-status status-fechada mc-font">FECHADA</span>
@@ -481,68 +513,87 @@
         </div>
     </div>
 
-    <div class="form-section">
-        <h2 class="mc-font form-title">Formulário de Aplicação</h2>
+    <div id="area-formulario" style="display: none;">
+        <div class="form-section" id="scroll-target">
+            <h2 class="mc-font form-title">Formulário de Aplicação</h2>
+            <h3 class="mc-font form-subtitle" id="titulo-vaga-selecionada">APLICANDO PARA: ...</h3>
 
-        <div id="aviso-fechada" class="aviso-fechada mc-font">
-            ⚠ Esta vaga está fechada no momento. Escolha uma vaga disponível.
-        </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label class="mc-font">Nick no Minecraft <span>*</span></label>
-                <input type="text" id="nick" class="form-control" placeholder="Nick no Minecraft" minlength="2" maxlength="16">
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="mc-font">Nick no Minecraft <span>*</span></label>
+                    <input type="text" id="nick" class="form-control" placeholder="Nick no Minecraft" minlength="2" maxlength="16">
+                </div>
+                <div class="form-group">
+                    <label class="mc-font">Usuário do Discord <span>*</span></label>
+                    <input type="text" id="discord" class="form-control" placeholder="Seu discord (Ex: @user)" minlength="2" maxlength="32">
+                </div>
             </div>
+
             <div class="form-group">
-                <label class="mc-font">Usuário do Discord <span>*</span></label>
-                <input type="text" id="discord" class="form-control" placeholder="Seu discord (Ex: @user)" minlength="2" maxlength="32">
+                <label class="mc-font">Idade <span>*</span></label>
+                <input type="number" id="idade" class="form-control" placeholder="Ex: 18" min="18" max="67" style="max-width:150px;">
             </div>
-        </div>
 
-        <div class="form-group">
-            <label class="mc-font">Idade <span>*</span></label>
-            <input type="number" id="idade" class="form-control" placeholder="Ex: 18" min="18" max="67" style="max-width:150px;">
-        </div>
+            <div id="perguntas-designer" class="perguntas-dinamicas" style="display: none;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="mc-font">Quais programas de edição/pixel art você utiliza? <span>*</span></label>
+                    <input type="text" id="resp-designer" class="form-control" placeholder="Ex: Photoshop, Aseprite, Paint.NET...">
+                </div>
+            </div>
 
-        <div class="form-group">
-            <label class="mc-font">Vaga desejada <span>*</span></label>
-            <select id="vaga" class="form-control" onchange="checkVaga(this)">
-                <option value="">-- SELECIONE --</option>
-                <option value="designer">Designer</option>
-                <option value="betatester">Beta Tester</option>
-                <option value="modelador">Modelador 3D</option>
-                <option value="desenvolvedor" disabled>Desenvolvedor (Fechada)</option>
-            </select>
-        </div>
+            <div id="perguntas-betatester" class="perguntas-dinamicas" style="display: none;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="mc-font">Você tem participação ativa no Discord do projeto? <span>*</span></label>
+                    <select id="resp-betatester" class="form-control">
+                        <option value="">-- SELECIONE --</option>
+                        <option value="Sim, converso frequentemente">Sim, converso frequentemente</option>
+                        <option value="Estou lá, mas acompanho em silêncio">Estou lá, mas acompanho em silêncio</option>
+                        <option value="Ainda não entrei/Entrei recentemente">Ainda não entrei / Entrei recentemente</option>
+                    </select>
+                </div>
+            </div>
 
-        <div class="form-group">
-            <label class="mc-font">Por que você quer entrar na equipe? <span>*</span></label>
-            <textarea id="motivo" class="form-control" rows="4" placeholder="Descreva sua motivação e o que pode agregar ao projeto... (Mín. 100 caracteres)" minlength="100"></textarea>
-        </div>
+            <div id="perguntas-modelador" class="perguntas-dinamicas" style="display: none;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="mc-font">Há quanto tempo você modela (Blockbench/Outros)? <span>*</span></label>
+                    <input type="text" id="resp-modelador" class="form-control" placeholder="Ex: Uso o Blockbench há 2 anos...">
+                </div>
+            </div>
 
-        <div class="form-group">
-            <label class="mc-font">Já trabalhou em outros projetos semelhantes? Se sim, quais? <span>*</span></label>
-            <textarea id="experiencia" class="form-control" rows="3" placeholder="Conte sobre suas experiências anteriores em outros servidores, texturas ou equipes..."></textarea>
-        </div>
+            <div class="form-group">
+                <label class="mc-font">Por que você quer entrar na equipe? <span>*</span></label>
+                <textarea id="motivo" class="form-control" rows="4" placeholder="Descreva sua motivação e o que pode agregar ao projeto... (Mín. 100 caracteres)" minlength="100"></textarea>
+            </div>
 
-        <div class="form-group">
-            <label class="mc-font">Portfólio / Links <span style="color:#666;">(opcional)</span></label>
-            <input type="text" id="portfolio" class="form-control" placeholder="Links do seu trabalho, Discord, YouTube...">
-        </div>
+            <div class="form-group">
+                <label class="mc-font">Já trabalhou em outros projetos semelhantes? Se sim, quais?</label>
+                <textarea id="experiencia" class="form-control" rows="3" placeholder="Conte sobre suas experiências anteriores em outros servidores, texturas ou equipes..."></textarea>
+            </div>
 
-        <div class="form-group">
-            <label class="mc-font">Onde nos encontrou?</label>
-            <select id="origem" class="form-control">
-                <option value="">-- SELECIONE --</option>
-                <option value="discord">Servidor do Discord</option>
-                <option value="amigo">Indicação de amigo</option>
-                <option value="youtube">YouTube</option>
-                <option value="outro">Outro</option>
-            </select>
-        </div>
+            <div class="form-group">
+                <label class="mc-font">Portfólio / Links <span style="color:#666;">(opcional)</span></label>
+                <input type="text" id="portfolio" class="form-control" placeholder="Links do seu trabalho, Discord, YouTube...">
+            </div>
 
-        <div class="btn-center">
-            <button id="btn-enviar" class="pixel-btn mc-font" onclick="enviarFormulario()">ENVIAR APLICAÇÃO</button>
+            <div class="form-group">
+                <label class="mc-font">Onde nos encontrou?</label>
+                <select id="origem" class="form-control" onchange="checkOrigem(this)">
+                    <option value="">-- SELECIONE --</option>
+                    <option value="discord">Servidor do Discord</option>
+                    <option value="amigo">Indicação de amigo</option>
+                    <option value="youtube">YouTube</option>
+                    <option value="outro">Outro</option>
+                </select>
+                
+                <div id="grupo-outro" style="display: none; margin-top: 15px;">
+                    <label class="mc-font" style="color: #ff6600;">Especifique onde: <span>*</span></label>
+                    <input type="text" id="origem-outro" class="form-control" placeholder="Digite onde nos encontrou...">
+                </div>
+            </div>
+
+            <div class="btn-center">
+                <button id="btn-enviar" class="pixel-btn mc-font" onclick="enviarFormulario()">ENVIAR APLICAÇÃO</button>
+            </div>
         </div>
     </div>
 
@@ -556,7 +607,8 @@
 </footer>
 
 <script>
-    const clickSound = new Audio('sons/minecraft-click.mp3');
+    const clickSound = new Audio('styles/sons/minecraft-click.mp3');
+    let vagaAtual = "";
 
     function playClick() {
         clickSound.currentTime = 0;
@@ -581,32 +633,103 @@
         arrow.textContent = list.classList.contains('open') ? '▲' : '▼';
     }
 
-    function checkVaga(select) {
+    // Mostra input pra especificar "Outro"
+    function checkOrigem(select) {
         playClick();
-        const aviso = document.getElementById('aviso-fechada');
-        const btn = document.getElementById('btn-enviar');
-        if (select.value === 'desenvolvedor') {
-            aviso.style.display = 'block';
-            btn.disabled = true;
+        const grupoOutro = document.getElementById('grupo-outro');
+        if (select.value === 'outro') {
+            grupoOutro.style.display = 'block';
         } else {
-            aviso.style.display = 'none';
-            btn.disabled = false;
+            grupoOutro.style.display = 'none';
         }
+    }
+
+    // Lógica para selecionar a vaga clicando no botão (Card)
+    function selecionarVaga(vaga, elementoCard) {
+        playClick();
+
+        if (vaga === 'desenvolvedor') {
+            showToast('⚠ ESTA VAGA ESTÁ FECHADA NO MOMENTO!');
+            return;
+        }
+
+        vagaAtual = vaga; // Salva a vaga para o envio
+
+        // Remove a borda de ativo de todos e aplica apenas no selecionado
+        document.querySelectorAll('.vaga-card').forEach(el => el.classList.remove('ativa'));
+        elementoCard.classList.add('ativa');
+
+        // Mostra o formulário suavemente
+        const areaForm = document.getElementById('area-formulario');
+        areaForm.style.display = 'flex';
+        setTimeout(() => areaForm.style.opacity = '1', 50);
+
+        // Atualiza o subtítulo indicando a vaga
+        let nomeVagaTexto = vaga === 'betatester' ? 'BETA TESTER' : vaga.toUpperCase();
+        document.getElementById('titulo-vaga-selecionada').textContent = `APLICANDO PARA: ${nomeVagaTexto}`;
+
+        // Oculta todas as perguntas específicas
+        document.querySelectorAll('.perguntas-dinamicas').forEach(el => el.style.display = 'none');
+        
+        // Exibe a pergunta da vaga selecionada
+        const perguntaEspecifica = document.getElementById(`perguntas-${vaga}`);
+        if(perguntaEspecifica) {
+            perguntaEspecifica.style.display = 'block';
+        }
+
+        // Rola a página até o formulário de forma suave
+        setTimeout(() => {
+            document.getElementById('scroll-target').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
     }
 
     function enviarFormulario() {
         playClick();
 
+        // Validação se selecionou alguma vaga antes
+        if (!vagaAtual) {
+            showToast('⚠ SELECIONE UMA VAGA CLICANDO NOS BOTÕES ACIMA!');
+            return;
+        }
+
         const nick        = document.getElementById('nick').value.trim();
         const discord     = document.getElementById('discord').value.trim();
         const idade       = parseInt(document.getElementById('idade').value);
-        const vaga        = document.getElementById('vaga').value;
         const motivo      = document.getElementById('motivo').value.trim();
         const experiencia = document.getElementById('experiencia').value.trim();
         const portfolio   = document.getElementById('portfolio').value.trim();
-        const origem      = document.getElementById('origem').value;
+        let origem        = document.getElementById('origem').value;
 
-        if (!nick || !discord || !vaga || !motivo || !experiencia) {
+        // Trata a resposta de "Onde nos encontrou?" se for "Outro"
+        if (origem === 'outro') {
+            const origemOutroValue = document.getElementById('origem-outro').value.trim();
+            if (!origemOutroValue) {
+                showToast('⚠ ESPECIFIQUE ONDE NOS ENCONTROU!');
+                return;
+            }
+            origem = `Outro: ${origemOutroValue}`;
+        }
+
+        // Validação das perguntas específicas
+        let respostaEspecificaExtra = "";
+
+        if (vagaAtual === 'designer') {
+            const resp = document.getElementById('resp-designer').value.trim();
+            if(!resp) return showToast('⚠ INFORME OS PROGRAMAS DE EDIÇÃO QUE UTILIZA!');
+            respostaEspecificaExtra = `[Programas que utiliza]: ${resp}`;
+        } 
+        else if (vagaAtual === 'betatester') {
+            const resp = document.getElementById('resp-betatester').value;
+            if(!resp) return showToast('⚠ RESPONDA SOBRE SUA ATIVIDADE NO DISCORD!');
+            respostaEspecificaExtra = `[Ativo no Discord?]: ${resp}`;
+        }
+        else if (vagaAtual === 'modelador') {
+            const resp = document.getElementById('resp-modelador').value.trim();
+            if(!resp) return showToast('⚠ INFORME SEU TEMPO DE EXPERIÊNCIA COM MODELAGEM!');
+            respostaEspecificaExtra = `[Tempo de modelagem]: ${resp}`;
+        }
+
+        if (!nick || !discord || !motivo) {
             showToast('⚠ PREENCHA TODOS OS CAMPOS OBRIGATÓRIOS!');
             return;
         }
@@ -635,15 +758,16 @@
         btn.disabled = true;
         showToast('⏳ ENVIANDO...');
 
-        // Monta o payload unificado identificando o tipo de ação como "aplicacao"
+        const experienciaFormatada = `Experiência Geral: ${experiencia || "Nenhuma informada"}\n\n📌 Pergunta da Vaga:\n${respostaEspecificaExtra}`;
+
         const dadosForm = {
             action: 'aplicacao',
             nick: nick,
             discord: discord,
             idade: idade,
-            vaga: vaga,
+            vaga: vagaAtual,
             motivo: motivo,
-            experiencia: experiencia,
+            experiencia: experienciaFormatada,
             portfolio: portfolio || 'Não informado',
             origem: origem || 'Não informado'
         };
@@ -668,14 +792,24 @@
     }
 
     function limparForm() {
-        ['nick','discord','idade','vaga','motivo','experiencia','portfolio','origem'].forEach(id => {
-            document.getElementById(id).value = '';
+        ['nick','discord','idade','motivo','experiencia','portfolio','origem','resp-designer','resp-betatester','resp-modelador', 'origem-outro'].forEach(id => {
+            const el = document.getElementById(id);
+            if(el) el.value = '';
         });
-        document.getElementById('aviso-fechada').style.display = 'none';
+        
+        document.getElementById('grupo-outro').style.display = 'none';
+
+        // Esconde o form e reseta visual das vagas
+        document.getElementById('area-formulario').style.opacity = '0';
+        setTimeout(() => document.getElementById('area-formulario').style.display = 'none', 500);
+        
+        document.querySelectorAll('.vaga-card').forEach(el => el.classList.remove('ativa'));
+        vagaAtual = "";
+        
         document.getElementById('btn-enviar').disabled = false;
     }
 
-    // Adaptado para tocar som ao clicar nos links do header/nav conforme a base do Contato.html
+    // tocar som ao clicar nos links do header
     document.addEventListener('click', function(e) {
         const target = e.target.closest('.nav-links a, .logo-container');
         if (target) {
