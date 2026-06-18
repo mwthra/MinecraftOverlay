@@ -401,6 +401,7 @@
         <a href="downloads">Downloads</a>
         <a href="equipe">Equipe</a>
         <a href="contato">Contato</a>
+        <a href="aplicacao">Aplicar</a>
         <a href="doacoes">Doações</a>
     </nav>
 </header>
@@ -416,28 +417,28 @@
                 <h4 class="mc-font">🎨 Designer</h4>
                 <p>Responsável pela criação e manutenção de ícones, texturas e identidade visual da overlay.</p>
                 <p style="color:#888; margin-top:10px; font-size:1.1rem;">Experiência com Photoshop / Aseprite / Paint.NET</p>
-                <span class="vaga-status status-aberta mc-font">● ABERTA</span>
+                <span class="vaga-status status-aberta mc-font">ABERTA</span>
             </div>
 
             <div class="vaga-card">
                 <h4 class="mc-font">🧪 Beta Tester</h4>
                 <p>Testa versões em desenvolvimento, reporta bugs e valida a compatibilidade entre servidores.</p>
-                <p style="color:#888; margin-top:10px; font-size:1.1rem;">Joga ativamente nos servidores suportados</p>
-                <span class="vaga-status status-aberta mc-font">● ABERTA</span>
+                <p style="color:#888; margin-top:10px; font-size:1.1rem;">Jogue ativamente nos servidores suportados</p>
+                <span class="vaga-status status-aberta mc-font">ABERTA</span>
             </div>
 
             <div class="vaga-card">
                 <h4 class="mc-font">🧊 Modelador 3D</h4>
-                <p>Cria modelos tridimensionais customizados para itens, blocos ou cosméticos integrados à overlay.</p>
-                <p style="color:#888; margin-top:10px; font-size:1.1rem;">Domínio em Blockbench ou Cubik Studio</p>
-                <span class="vaga-status status-aberta mc-font">● ABERTA</span>
+                <p>Cria modelos tridimensionais customizados para itens ou blocos integrados à overlay.</p>
+                <p style="color:#888; margin-top:10px; font-size:1.1rem;">Domínio em Blockbench</p>
+                <span class="vaga-status status-aberta mc-font">ABERTA</span>
             </div>
 
             <div class="vaga-card">
                 <h4 class="mc-font">⚙️ Desenvolvedor</h4>
-                <p>Auxilia no desenvolvimento de ferramentas, scripts e automações relacionadas ao projeto.</p>
-                <p style="color:#888; margin-top:10px; font-size:1.1rem;">Conhecimento em HTML, CSS ou Lua</p>
-                <span class="vaga-status status-fechada mc-font">● FECHADA</span>
+                <p>Auxilia no desenvolvimento do site e na programação de bots para o Discord.</p>
+                <p style="color:#888; margin-top:10px; font-size:1.1rem;">Conhecimento em HTML, CSS e JAVA</p>
+                <span class="vaga-status status-fechada mc-font">FECHADA</span>
             </div>
 
         </div>
@@ -452,8 +453,8 @@
             <div class="req-item">
                 <div class="req-icon">▸</div>
                 <div class="req-info">
-                    <h4 class="mc-font">Ter 16 anos ou mais</h4>
-                    <p>O projeto é voltado para maiores de 16 anos. Candidatos mais jovens não serão aceitos.</p>
+                    <h4 class="mc-font">Ter 18 anos ou mais</h4>
+                    <p>O projeto é voltado para maiores de 18 anos. Candidatos mais jovens não serão aceitos.</p>
                 </div>
             </div>
             <div class="req-item">
@@ -490,17 +491,17 @@
         <div class="form-row">
             <div class="form-group">
                 <label class="mc-font">Nick no Minecraft <span>*</span></label>
-                <input type="text" id="nick" class="form-control" placeholder="Nick no Minecraft" maxlength="16">
+                <input type="text" id="nick" class="form-control" placeholder="Nick no Minecraft" minlength="2" maxlength="16">
             </div>
             <div class="form-group">
                 <label class="mc-font">Usuário do Discord <span>*</span></label>
-                <input type="text" id="discord" class="form-control" placeholder="Seu discord (Ex: @user)" maxlength="32">
+                <input type="text" id="discord" class="form-control" placeholder="Seu discord (Ex: @user)" minlength="2" maxlength="32">
             </div>
         </div>
 
         <div class="form-group">
             <label class="mc-font">Idade <span>*</span></label>
-            <input type="number" id="idade" class="form-control" placeholder="Ex: 17" min="16" max="67" style="max-width:150px;">
+            <input type="number" id="idade" class="form-control" placeholder="Ex: 18" min="18" max="67" style="max-width:150px;">
         </div>
 
         <div class="form-group">
@@ -516,7 +517,7 @@
 
         <div class="form-group">
             <label class="mc-font">Por que você quer entrar na equipe? <span>*</span></label>
-            <textarea id="motivo" class="form-control" rows="4" placeholder="Descreva sua motivação e o que pode agregar ao projeto..."></textarea>
+            <textarea id="motivo" class="form-control" rows="4" placeholder="Descreva sua motivação e o que pode agregar ao projeto... (Mín. 100 caracteres)" minlength="100"></textarea>
         </div>
 
         <div class="form-group">
@@ -611,8 +612,23 @@
             return;
         }
 
-        if (!idade || idade < 16) {
-            showToast('⚠ VOCÊ PRECISA TER 16+ ANOS!');
+        if (nick.length < 2 || nick.length > 16) {
+            showToast('⚠ O NICK DEVE TER ENTRE 2 E 16 CARACTERES!');
+            return;
+        }
+
+        if (discord.length < 2 || discord.length > 32) {
+            showToast('⚠ O DISCORD DEVE TER ENTRE 2 E 32 CARACTERES!');
+            return;
+        }
+
+        if (!idade || idade < 18 || idade > 67) {
+            showToast('⚠ VOCÊ PRECISA TER ENTRE 18 E 67 ANOS!');
+            return;
+        }
+
+        if (motivo.length < 100) {
+            showToast('⚠ O MOTIVO DEVE TER NO MÍNIMO 100 CARACTERES!');
             return;
         }
 
