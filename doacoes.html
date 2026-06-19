@@ -246,145 +246,81 @@
 
     function playClick() {
         clickSound.currentTime = 0;
-        clickSound.play();
+        clickSound.play().catch(e => console.log("Áudio bloqueado"));
     }
 
     // Timer visual
     function startTimer(expiration) {
         const timerElement = document.getElementById('timer-display');
-        
         function update() {
-            const now = Date.now();
-            const diff = expiration - now;
-
-            if (diff <= 0) {
-                location.reload();
-                return;
-            }
-
-            const minutes = Math.floor(diff / 60000);
-            const seconds = Math.floor((diff % 60000) / 1000);
-            
-            timerElement.innerText = `Tempo restante: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            const diff = expiration - Date.now();
+            if (diff <= 0) { location.reload(); return; }
+            const m = Math.floor(diff / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
+            timerElement.innerText = `Tempo restante: ${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
         }
-
         update();
         setInterval(update, 1000);
     }
 
-    document.addEventListener('click', function(e) {
-        const target = e.target.closest('.nav-link-click') || e.target.closest('.nav-links a');
-        if (target) {
-            e.preventDefault();
-            playClick();
-            const href = target.getAttribute('href');
-            if(href && href !== "#") {
-                setTimeout(() => {
-                    window.location.href = href;
-                }, 150);
-            }
-        }
-    });
-
     function checkCooldown() {
-        const expiration = localStorage.getItem('donation_cooldown');
-        if (expiration) {
-            const now = Date.now();
-            if (now < parseInt(expiration)) {
-                showLimitMessage();
-                startTimer(parseInt(expiration));
-                return true;
-            } else {
-                localStorage.removeItem('donation_cooldown');
-            }
+        const exp = localStorage.getItem('donation_cooldown');
+        if (exp && Date.now() < parseInt(exp)) {
+            document.getElementById('donation-form').style.display = 'none';
+            document.getElementById('limit-area').style.display = 'block';
+            document.getElementById('placeholder-text').innerText = "Limite atingido.";
+            startTimer(parseInt(exp));
+            return true;
         }
         return false;
     }
 
-    function showLimitMessage() {
-        document.getElementById('donation-form').style.display = 'none';
-        document.getElementById('limit-area').style.display = 'block';
-        document.getElementById('placeholder-text').innerText = "Limite atingido.";
-    }
-
     window.onload = checkCooldown;
 
-    const valorInput = document.getElementById('valor');
-    valorInput.addEventListener('input', function(e) {
-        let value = e.target.value.replace(/\D/g, ''); 
-        if (value === "") { e.target.value = ""; return; }
-        value = (value / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        e.target.value = value;
+    // Máscara de valor
+    document.getElementById('valor').addEventListener('input', function(e) {
+        let v = e.target.value.replace(/\D/g, '');
+        if (v === "") { e.target.value = ""; return; }
+        e.target.value = (v / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
     });
 
-    document.getElementById('donation-form').addEventListener('submit', async function(e) {
-        e.preventDefault();
+    // CORREÇÃO: Usamos o evento de clique no botão, não o submit do form
+    document.getElementById('submit-btn').addEventListener('click', async function() {
         playClick();
-
         if (checkCooldown()) return;
-        
-        let formIsValid = true;
-        const inputs = this.querySelectorAll('.pixel-input[required]');
 
-        inputs.forEach(input => {
-            const val = input.value.trim();
-            let isInvalid = false;
-            let errorMessage = "Preencha este campo.";
+        const nome = document.getElementById('nome').value.trim();
+        const discord = document.getElementById('discord').value.trim();
+        const valorRaw = document.getElementById('valor').value;
+        const valor = valorRaw.replace(/\./g, '').replace(',', '.');
 
-            if (!val) { isInvalid = true; }
-            else if (input.id === 'nome' && (val.length < 3 || val.length > 16)) { isInvalid = true; errorMessage = "Mínimo 3 e máximo 16 letras."; }
-            else if (input.id === 'discord' && (val.length < 2 || val.length > 32)) { isInvalid = true; errorMessage = "Mínimo 2 e máximo 32 letras."; }
-            else if (input.id === 'valor') {
-                const numericValue = parseFloat(val.replace(/\./g, '').replace(',', '.'));
-                if (isNaN(numericValue) || numericValue < 1.00) { isInvalid = true; errorMessage = "Valor mínimo: R$ 1,00"; }
-            }
-
-            if (isInvalid) {
-                formIsValid = false;
-                input.classList.add('invalid');
-                const errorBubble = input.parentElement.querySelector('.error-bubble');
-                if (errorBubble) { errorBubble.textContent = errorMessage; errorBubble.style.display = 'block'; }
-            }
-        });
-
-        if (formIsValid) {
-            const n = document.getElementById('nome').value.trim();
-            const d = document.getElementById('discord').value.trim();
-            const v = document.getElementById('valor').value.replace(/\./g, '').replace(',', '.');
-        
-            try {
-                const response = await fetch("https://minecraftoverlay.mowothra.workers.dev/", { 
-                    method: 'POST',
-                    mode: 'cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ action: "doacao", nome: n, discord: d, valor: v })
-                });
-        
-                if (response.ok) {
-                    const expirationTime = Date.now() + COOLDOWN_TIME;
-                    localStorage.setItem('donation_cooldown', expirationTime);
-        
-                    document.getElementById('info-text').style.display = 'none';
-                    this.style.display = 'none';
-                    document.getElementById('qr-placeholder').style.display = 'none';
-                    document.getElementById('pix-area').style.display = 'block';
-                    document.getElementById('success-area').style.display = 'block';
-                } else {
-                    alert("Erro no servidor: " + response.status);
-                }
-            } catch (error) { 
-                console.error(error);
-                alert("Erro de conexão."); 
-            }
+        // Validação básica
+        if (nome.length < 3 || discord.length < 2 || parseFloat(valor) < 1.00) {
+            alert("Preencha todos os campos corretamente (Valor min: R$ 1,00)");
+            return;
         }
-    });
 
-    document.querySelectorAll('.pixel-input').forEach(input => {
-        input.addEventListener('input', function() {
-            this.classList.remove('invalid');
-            const bubble = this.parentElement.querySelector('.error-bubble');
-            if (bubble) bubble.style.display = 'none';
-        });
+        try {
+            const response = await fetch("https://minecraftoverlay.mowothra.workers.dev/", { 
+                method: 'POST',
+                mode: 'cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'doacao', nome: nome, discord: discord, valor: valor })
+            });
+
+            if (response.ok) {
+                localStorage.setItem('donation_cooldown', Date.now() + COOLDOWN_TIME);
+                document.getElementById('info-text').style.display = 'none';
+                document.getElementById('donation-form').style.display = 'none';
+                document.getElementById('qr-placeholder').style.display = 'none';
+                document.getElementById('pix-area').style.display = 'block';
+                document.getElementById('success-area').style.display = 'block';
+            } else {
+                alert("Erro ao conectar com o servidor.");
+            }
+        } catch (err) {
+            alert("Erro de conexão. Verifique sua internet.");
+        }
     });
 </script>
 
