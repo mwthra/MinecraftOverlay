@@ -351,24 +351,19 @@
             const n = document.getElementById('nome').value.trim();
             const d = document.getElementById('discord').value.trim();
             const v = document.getElementById('valor').value.replace(/\./g, '').replace(',', '.');
-
+        
             try {
                 const response = await fetch("https://minecraftoverlay.mowothra.workers.dev/", { 
                     method: 'POST',
                     mode: 'cors',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        action: 'doacao',
-                        nome: n, 
-                        discord: d, 
-                        valor: v
-                    })
+                    body: JSON.stringify({ action: "doacao", nome: n, discord: d, valor: v })
                 });
-
+        
                 if (response.ok) {
                     const expirationTime = Date.now() + COOLDOWN_TIME;
                     localStorage.setItem('donation_cooldown', expirationTime);
-
+        
                     document.getElementById('info-text').style.display = 'none';
                     this.style.display = 'none';
                     document.getElementById('qr-placeholder').style.display = 'none';
@@ -381,6 +376,7 @@
                 console.error(error);
                 alert("Erro de conexão."); 
             }
+        }
     });
 
     document.querySelectorAll('.pixel-input').forEach(input => {
