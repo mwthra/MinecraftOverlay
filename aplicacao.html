@@ -475,6 +475,13 @@
                 <p style="color:#888; margin-top:10px; font-size:1.1rem;">Conhecimento em HTML, CSS e JAVA</p>
                 <span class="vaga-status status-fechada mc-font">FECHADA</span>
             </div>
+            
+            <div class="vaga-card" onclick="selecionarVaga('staff', this)">
+                <h4 class="mc-font">Staff Discord</h4>
+                <p>Responsável pela moderação e suporte aos membros.</p>
+                <p style="color:#888; margin-top:10px; font-size:1.1rem;">Experiência em moderação e bom domínio da língua portuguesa.</p>
+                <span class="vaga-status status-aberta mc-font">ABERTA</span>
+            </div>
 
         </div>
     </div>
@@ -562,6 +569,27 @@
                     <input type="text" id="resp-modelador" class="form-control" placeholder="Ex: Uso o Blockbench há 2 anos...">
                 </div>
             </div>
+            
+            <div id="perguntas-staff" class="perguntas-dinamicas" style="display: none;">
+                <div class="form-group">
+                    <label class="mc-font">Sua conta do Discord é compartilhada? <span>*</span></label>
+                    <select id="resp-staff-compartilhada" class="form-control">
+                        <option value="">-- SELECIONE --</option>
+                        <option value="Sim">Sim</option>
+                        <option value="Não">Não</option>
+                    </select>
+                </div>
+    <div class="form-group" style="margin-bottom: 0;">
+        <label class="mc-font">Horas diárias dedicadas ao suporte? <span>*</span></label>
+        <select id="resp-staff-horas" class="form-control">
+            <option value="">-- SELECIONE --</option>
+            <option value="1 a 2 horas">1 a 2 horas</option>
+            <option value="2 a 3 horas">2 a 3 horas</option>
+            <option value="3 a 4 horas">3 a 4 horas</option>
+            <option value="5+ horas">5 ou mais horas</option>
+        </select>
+    </div>
+</div>
 
             <div class="form-group">
                 <label class="mc-font">Por que você quer entrar na equipe? <span>*</span></label>
@@ -573,9 +601,9 @@
                 <textarea id="experiencia" class="form-control" rows="3" placeholder="Conte sobre suas experiências anteriores em outros servidores, texturas ou equipes..."></textarea>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="grupo-portfolio">
                 <label class="mc-font">Portfólio / Links <span style="color:#666;">(opcional)</span></label>
-                <input type="text" id="portfolio" class="form-control" placeholder="Links do seu trabalho, Discord, YouTube...">
+                <input type="text" id="portfolio" class="form-control" placeholder="...">
             </div>
 
             <div class="form-group">
@@ -648,7 +676,7 @@
     }
 
     // Lógica para selecionar a vaga clicando no botão (Card)
-    function selecionarVaga(vaga, elementoCard) {
+function selecionarVaga(vaga, elementoCard) {
         playClick();
 
         if (vaga === 'desenvolvedor') {
@@ -656,31 +684,32 @@
             return;
         }
 
-        vagaAtual = vaga; // Salva a vaga para o envio
+        const grupoPortfolio = document.getElementById('grupo-portfolio');
+        if (vaga === 'staff' || vaga === 'betatester') {
+            grupoPortfolio.style.display = 'none';
+        } else {
+            grupoPortfolio.style.display = 'block';
+        }
 
-        // Remove a borda de ativo de todos e aplica apenas no selecionado
+        vagaAtual = vaga; 
+
         document.querySelectorAll('.vaga-card').forEach(el => el.classList.remove('ativa'));
         elementoCard.classList.add('ativa');
 
-        // Mostra o formulário suavemente
         const areaForm = document.getElementById('area-formulario');
         areaForm.style.display = 'flex';
         setTimeout(() => areaForm.style.opacity = '1', 50);
 
-        // Atualiza o subtítulo indicando a vaga
         let nomeVagaTexto = vaga === 'betatester' ? 'BETA TESTER' : vaga.toUpperCase();
         document.getElementById('titulo-vaga-selecionada').textContent = `APLICANDO PARA: ${nomeVagaTexto}`;
 
-        // Oculta todas as perguntas específicas
         document.querySelectorAll('.perguntas-dinamicas').forEach(el => el.style.display = 'none');
         
-        // Exibe a pergunta da vaga selecionada
         const perguntaEspecifica = document.getElementById(`perguntas-${vaga}`);
         if(perguntaEspecifica) {
             perguntaEspecifica.style.display = 'block';
         }
 
-        // Rola a página até o formulário de forma suave
         setTimeout(() => {
             document.getElementById('scroll-target').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
@@ -700,7 +729,6 @@
         const idade       = parseInt(document.getElementById('idade').value);
         const motivo      = document.getElementById('motivo').value.trim();
         const experiencia = document.getElementById('experiencia').value.trim();
-        const portfolio   = document.getElementById('portfolio').value.trim();
         let origem        = document.getElementById('origem').value;
 
         // Trata a resposta de "Onde nos encontrou?" se for "Outro"
@@ -731,7 +759,12 @@
             if(!resp) return showToast('⚠ INFORME SEU TEMPO DE EXPERIÊNCIA COM MODELAGEM!');
             respostaEspecificaExtra = `[Tempo de modelagem]: ${resp}`;
         }
-
+        else if (vagaAtual === 'staff') {
+            const r1 = document.getElementById('resp-staff-compartilhada').value;
+            const r2 = document.getElementById('resp-staff-horas').value;
+            if(!r1 || !r2) return showToast('⚠ RESPONDA AS PERGUNTAS DE STAFF!');
+            respostaEspecificaExtra = `[Conta compartilhada]: ${r1} | [Horas diárias]: ${r2}`;
+        }
         if (!nick || !discord || !motivo) {
             showToast('⚠ PREENCHA TODOS OS CAMPOS OBRIGATÓRIOS!');
             return;
