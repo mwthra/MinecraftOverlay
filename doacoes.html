@@ -170,12 +170,12 @@
         <span class="header-logo mc-font">Minecraft Overlay</span>
     </a>
     <nav class="nav-links mc-font">
-        <a href="/">Início</a>
-        <a href="downloads">Downloads</a>
-        <a href="equipe">Equipe</a>
-        <a href="contato">Contato</a>
-        <a href="aplicacao">Aplicar</a>
-        <a href="doacoes">Doações</a>
+        <a href="/" class="nav-link-click">Início</a>
+        <a href="downloads" class="nav-link-click">Downloads</a>
+        <a href="equipe" class="nav-link-click">Equipe</a>
+        <a href="contato" class="nav-link-click">Contato</a>
+        <a href="aplicacao" class="nav-link-click">Aplicar</a>
+        <a href="doacoes" class="nav-link-click">Doações</a>
     </nav>
 </header>
 
@@ -277,6 +277,17 @@
     }
 
     window.onload = checkCooldown;
+
+    // Som + delayzinho nos links do header
+    document.addEventListener('click', function(e) {
+        const target = e.target.closest('.nav-link-click');
+        if (target) {
+            e.preventDefault();
+            playClick();
+            const href = target.getAttribute('href');
+            setTimeout(() => { window.location.href = href; }, 150);
+        }
+    });
 
     // Máscara de valor
     document.getElementById('valor').addEventListener('input', function(e) {
