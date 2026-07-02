@@ -495,8 +495,8 @@
             <div class="req-item">
                 <div class="req-icon">▸</div>
                 <div class="req-info">
-                    <h4 class="mc-font">Ter 18 anos ou mais</h4>
-                    <p>O projeto é voltado para maiores de 18 anos. Candidatos mais jovens não serão aceitos.</p>
+                    <h4 class="mc-font">Ter 14 anos ou mais</h4>
+                    <p>O projeto é voltado para maiores de 14 anos. Candidatos mais jovens não serão aceitos.</p>
                 </div>
             </div>
             <div class="req-item">
@@ -541,7 +541,7 @@
 
             <div class="form-group">
                 <label class="mc-font">Idade <span>*</span></label>
-                <input type="number" id="idade" class="form-control" placeholder="Ex: 18" min="18" max="67" style="max-width:150px;">
+                <input type="number" id="idade" class="form-control" placeholder="Ex: 14" style="max-width:150px;">
             </div>
 
             <div id="perguntas-designer" class="perguntas-dinamicas" style="display: none;">
@@ -781,8 +781,8 @@ function selecionarVaga(vaga, elementoCard) {
             return;
         }
 
-        if (!idade || idade < 18 || idade > 67) {
-            showToast('⚠ VOCÊ PRECISA TER ENTRE 18 E 67 ANOS!');
+        if (!idade || idade <= 0) {
+            showToast('⚠ INFORME UMA IDADE VÁLIDA!');
             return;
         }
 
